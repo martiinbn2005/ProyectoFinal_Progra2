@@ -1,15 +1,26 @@
 package negocio;
 
 public class RielRecto extends Rieles {
-    public RielRecto(int posX, int posY, int orientacion) throws Exception {
-        super(posX, posY, orientacion);
+    private boolean esVertical; // true: N-S, false: E-O
+
+    public RielRecto(int posX, int posY, boolean esVertical) throws Exception {
+        super(posX, posY);
+        this.esVertical = esVertical;
+    }
+
+    public boolean isEsVertical() {
+        return esVertical;
     }
 
     @Override
     public String obtenerSalida(String entrada) {
-        // Lógica: Si entra por el NORTE, sale por el SUR (y viceversa)
-        if (entrada.equals("NORTE")) return "SUR";
-        if (entrada.equals("SUR")) return "NORTE";
+        if (!esVertical) { // Riel Horizontal
+            if (entrada.equals(OESTE)) return ESTE;
+            if (entrada.equals(ESTE)) return OESTE;
+        } else { // Riel Vertical
+            if (entrada.equals(NORTE)) return SUR;
+            if (entrada.equals(SUR)) return NORTE;
+        }
         return "DESCARRILAMIENTO";
     }
 }
