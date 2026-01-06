@@ -14,10 +14,12 @@ public class RielRecto extends Rieles {
         if (orient < 0) orient += 360;
 
         if (orient == 0 || orient == 180) {
+            // Riel vertical
             if (entrada.equals("NORTE")) return "SUR";
             if (entrada.equals("SUR")) return "NORTE";
             return "DESCARRILAMIENTO";
-        } else { // 90 or 270
+        } else { 
+            // Riel horizontal (90 or 270)
             if (entrada.equals("ESTE")) return "OESTE";
             if (entrada.equals("OESTE")) return "ESTE";
             return "DESCARRILAMIENTO";

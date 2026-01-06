@@ -14,11 +14,11 @@ entrada: 3,0,ESTE
 # Estación salida: fila,columna
 salida: 3,6
 
-# Obstáculos: 6 obstáculos distribuidos
+# Obstáculos: 6 obstáculos distribuidos dispersos por el mapa
 obstaculos:
 1,2
-2,3
+2,4
 3,3
-4,3
-5,4
-2,5
+4,5
+5,2
+6,4

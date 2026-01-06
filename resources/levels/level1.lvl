@@ -14,8 +14,7 @@ entrada: 2,0,ESTE
 # Estación salida: fila,columna
 salida: 2,4
 
-# Obstáculos: 3 obstáculos simples
+# Obstáculos: 2 obstáculos en el mapa sin bloquear ruta directa
 obstaculos:
-1,2
+0,2
 3,2
-2,3

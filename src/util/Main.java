@@ -24,16 +24,16 @@ public class Main {
         gameManager.iniciarPartida(jugador);
 
         // --- Modo construcción + play para el nivel 1 ---
-        // Definir entrada/salida en columnas izquierda/derecha y colocar rieles que crean una ruta simple
-        // Usamos la fila 2 (centro) en un mapa 5x5: inicio en (2,0) y fin en (2,4)
-        nivelManager.setEstacionInicio(nivel1, 2, 0, "SUR");
-        nivelManager.setEstacionFin(nivel1, 2, 4);
-        // Orientación 90 para rieles horizontales (salida ESTE/OESTE)
-        nivelManager.agregarRiel(nivel1, new RielRecto(2, 1, 90));
-        nivelManager.agregarRiel(nivel1, new RielRecto(2, 2, 90));
-        nivelManager.agregarRiel(nivel1, new RielRecto(2, 3, 90));
+        // El nivel1 ya tiene entrada/salida y obstáculos configurados desde la plantilla
+        // Plantilla: entrada (2,0), salida (2,4), obstáculos en (0,2), (3,2) sin bloquear ruta
+        // Ruta directa por fila 2: (2,0) -> (2,1) -> (2,2) -> (2,3) -> (2,4)
+        
+        // Orientación 90 para rieles horizontales (ESTE<->OESTE)
+        nivelManager.agregarRiel(nivel1, new RielRecto(2, 1, 90));  // (2,1)
+        nivelManager.agregarRiel(nivel1, new RielRecto(2, 2, 90));  // (2,2)
+        nivelManager.agregarRiel(nivel1, new RielRecto(2, 3, 90));  // (2,3)
 
-        // Intentos inválidos: solapamiento, colocar sobre estación, y colocar sobre obstáculo
+        // Intentos de colocación inválida con manejo de excepciones
         try {
             // Solapamiento: ya hay riel en (2,2)
             nivelManager.agregarRiel(nivel1, new RielRecto(2, 2, 90));
@@ -47,9 +47,8 @@ public class Main {
             System.out.println("Error al colocar riel sobre estación: " + ex.getMessage());
         }
         try {
-            // Poner un obstáculo y luego intentar colocar riel ahí
-            nivel1.agregarObstaculo(new Piedra(0, 1));
-            nivelManager.agregarRiel(nivel1, new RielRecto(0, 1, 90));
+            // Intentar colocar riel en un lugar donde ya hay obstáculo (0,2)
+            nivelManager.agregarRiel(nivel1, new RielRecto(0, 2, 90));
         } catch (Exception ex) {
             System.out.println("Error al colocar riel sobre obstáculo: " + ex.getMessage());
         }

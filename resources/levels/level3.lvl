@@ -14,17 +14,17 @@ entrada: 4,0,ESTE
 # Estación salida: fila,columna
 salida: 4,8
 
-# Obstáculos: 12 obstáculos creando un laberinto
+# Obstáculos: 12 obstáculos simples distribuidos
 obstaculos:
-1,2
 2,2
-3,2
-5,2
-6,2
-7,2
 2,4
-3,4
+2,6
+4,2
 4,4
-5,4
-1,6
-7,6
+4,6
+6,2
+6,4
+6,6
+3,5
+5,3
+5,7

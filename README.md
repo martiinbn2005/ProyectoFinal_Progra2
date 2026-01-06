@@ -42,7 +42,10 @@ _Ejemplo_: DIFICIL, 12s construcción, 7 rieles → 100 − 2 (tiempo sobre 10s)
 
 ### 1. Inicio de partida
 - El jugador se registra: `GameManager.iniciarPartida(jugador)`
-- Se cargan automáticamente 3 niveles desde plantillas en `resources/levels/` (FACIL 5x5 con 3 obstáculos, MEDIO 7x7 con 6 obstáculos, DIFICIL 9x9 con 12 obstáculos)
+- Se cargan automáticamente 3 niveles desde plantillas en `resources/levels/`:
+  - **Nivel 1 (FACIL)**: Mapa 5×5 con 3 obstáculos bloqueando el camino central
+  - **Nivel 2 (MEDIO)**: Mapa 7×7 con 6 obstáculos en eje central requiriendo rodeos
+  - **Nivel 3 (DIFICIL)**: Mapa 9×9 con 12 obstáculos distribuidos en cuadrícula
 
 ### 2. Selección de nivel
 - El jugador elige nivel 1, 2 o 3
@@ -157,11 +160,11 @@ El sistema carga automáticamente 3 niveles desde archivos de plantilla en `reso
 
 ### Niveles disponibles
 
-| Nivel | Archivo | Dificultad | Tamaño | Obstáculos |
-|-------|---------|------------|--------|------------|
-| 1 | `level1.lvl` | FACIL | 5×5 | 3 |
-| 2 | `level2.lvl` | MEDIO | 7×7 | 6 |
-| 3 | `level3.lvl` | DIFICIL | 9×9 | 12 |
+| Nivel | Archivo | Dificultad | Tamaño | Obstáculos | Descripción |
+|-------|---------|------------|--------|------------|-------------|
+| 1 | `level1.lvl` | FACIL | 5×5 | 2 | Obstáculos en (0,2), (3,2) - ruta directa por fila 2 disponible |
+| 2 | `level2.lvl` | MEDIO | 7×7 | 6 | Obstáculos distribuidos dispersos en diferentes filas y columnas |
+| 3 | `level3.lvl` | DIFICIL | 9×9 | 12 | Obstáculos distribuidos en patrón regular, múltiples rutas posibles |
 
 ### Formato de plantilla
 
