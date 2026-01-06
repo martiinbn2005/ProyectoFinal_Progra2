@@ -1,0 +1,24 @@
+# Nivel 2 - MEDIO
+# Mapa 7x7 con obstáculos moderados
+
+numero: 2
+
+dificultad: MEDIO
+
+filas: 7
+columnas: 7
+
+# Estación inicio: fila,columna,direccion
+entrada: 3,0,ESTE
+
+# Estación salida: fila,columna
+salida: 3,6
+
+# Obstáculos: 6 obstáculos distribuidos
+obstaculos:
+1,2
+2,3
+3,3
+4,3
+5,4
+2,5

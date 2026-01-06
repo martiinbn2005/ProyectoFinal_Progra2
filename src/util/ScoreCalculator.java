@@ -12,6 +12,7 @@ public class ScoreCalculator {
      * Reglas simples:
         - Si el intento no fue exitoso, puntaje = 0
         - Puntaje base 100 para intentos exitosos, se aplican penalizaciones por tiempo y rieles usados.
+        - Los primeros 10 segundos de construcción NO se penalizan.
         - Dificultad ajusta puntaje: "FACIL" +0, "MEDIO" -10, "DIFICIL" -20 (case-insensitive)
      */
     public static Puntaje calcularPuntaje(Intento intento, Nivel nivel) throws Exception {
@@ -27,7 +28,9 @@ public class ScoreCalculator {
         int base = 100;
 
         // Penalizaciones
-        int penalizacionTiempo = (int) Math.round(tiempo * 1.0); // 1 punto por segundo
+        // Primeros 10 segundos no se penalizan
+        double tiempoPenalizable = Math.max(0.0, tiempo - 10.0);
+        int penalizacionTiempo = (int) Math.round(tiempoPenalizable * 1.0); // 1 punto por segundo sobre el tiempo penalizable
         int penalizacionRieles = Math.max(0, (rieles - 5) * 2); // si usó más de 5 rieles, 2 puntos por extra
 
         int ajusteDificultad = 0;

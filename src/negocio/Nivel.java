@@ -14,6 +14,14 @@ public class Nivel {
     private int[][] mapaMatriz; // 0: Vacío, 1: Estación Inicio, 2: Estación Fin, 3: Obstáculo
     private List<Obstaculo> obstaculos;
 
+    // Nuevos campos para rieles y estaciones (entrada/salida)
+    private List<Rieles> rieles;
+    private int entradaX = -1;
+    private int entradaY = -1;
+    private String entradaDireccion;
+    private int salidaX = -1;
+    private int salidaY = -1;
+
     public Nivel(int numeroNivel, String dificultad, int filas, int columnas) throws Exception {
         this.setNumeroNivel(numeroNivel);
         this.setDificultad(dificultad);
@@ -24,6 +32,7 @@ public class Nivel {
         this.columnas = columnas;
         this.mapaMatriz = new int[filas][columnas];
         this.obstaculos = new ArrayList<>();
+        this.rieles = new ArrayList<>();
     }
 
     // Getters y Setters con Validaciones
@@ -66,6 +75,65 @@ public class Nivel {
         this.obstaculos.add(obstaculo);
         this.mapaMatriz[x][y] = 3; // Se marca como obstáculo en la matriz
     }
+
+    // Métodos para rieles y estaciones (entrada/salida)
+    public void setEstacionInicio(int x, int y, String direccion) throws Exception {
+        // La estación de inicio debe ubicarse en la columna izquierda (y == 0)
+        if (x < 0 || x >= filas || y < 0 || y >= columnas) throw new Exception("Coordenadas fuera de rango para entrada.");
+        if (y != 0) throw new Exception("La estación inicio debe estar en la columna izquierda (y=0) para iniciar desde la izquierda.");
+        this.entradaX = x;
+        this.entradaY = y;
+        // Forzamos que la estación de inicio siempre salga hacia la derecha (ESTE)
+        this.entradaDireccion = "ESTE";
+        this.mapaMatriz[x][y] = 1;
+    }
+
+    public void setEstacionFin(int x, int y) throws Exception {
+        // La estación de fin debe ubicarse en la columna derecha (y == columnas - 1)
+        if (x < 0 || x >= filas || y < 0 || y >= columnas) throw new Exception("Coordenadas fuera de rango para salida.");
+        if (y != (columnas - 1)) throw new Exception("La estación fin debe estar en la columna derecha para terminar en la derecha.");
+        this.salidaX = x;
+        this.salidaY = y;
+        this.mapaMatriz[x][y] = 2;
+    }
+
+    public int getEntradaX() { return entradaX; }
+    public int getEntradaY() { return entradaY; }
+    public String getEntradaDireccion() { return entradaDireccion; }
+    public int getSalidaX() { return salidaX; }
+    public int getSalidaY() { return salidaY; }
+
+    /**
+     * Verifica si es posible colocar un riel en (x,y) y devuelve
+     * Optional.empty() si se puede, o Optional con la razón en caso contrario.
+     */
+    public java.util.Optional<String> puedeColocarRiel(int x, int y, Rieles riel) {
+        if (riel == null) return java.util.Optional.of("Riel nulo");
+        if (x < 0 || x >= filas || y < 0 || y >= columnas) return java.util.Optional.of("Coordenadas fuera de rango para riel.");
+        // Si hay obstáculo en la matriz
+        if (this.mapaMatriz[x][y] == 3) return java.util.Optional.of("Celda ocupada por obstáculo.");
+        // No permitir colocar sobre estaciones
+        if (this.mapaMatriz[x][y] == 1) return java.util.Optional.of("No se puede colocar riel sobre estación inicio.");
+        if (this.mapaMatriz[x][y] == 2) return java.util.Optional.of("No se puede colocar riel sobre estación fin.");
+        // Evitar solapamiento de rieles
+        if (obtenerRielEn(x, y) != null) return java.util.Optional.of("Ya existe un riel en la celda.");
+        return java.util.Optional.empty();
+    }
+
+    public void agregarRiel(Rieles riel) throws Exception {
+        java.util.Optional<String> motivo = puedeColocarRiel(riel.getPosX(), riel.getPosY(), riel);
+        if (motivo.isPresent()) throw new Exception("Imposible colocar riel: " + motivo.get());
+        this.rieles.add(riel);
+    }
+
+    public Rieles obtenerRielEn(int x, int y) {
+        for (Rieles r : rieles) {
+            if (r.getPosX() == x && r.getPosY() == y) return r;
+        }
+        return null;
+    }
+
+    public java.util.List<Rieles> getRieles() { return new java.util.ArrayList<>(rieles); }
 
     public int[][] getMapaMatriz() {
         return mapaMatriz;

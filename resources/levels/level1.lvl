@@ -1,0 +1,21 @@
+# Nivel 1 - FACIL
+# Mapa 5x5 con pocos obstáculos
+
+numero: 1
+
+dificultad: FACIL
+
+filas: 5
+columnas: 5
+
+# Estación inicio: fila,columna,direccion
+entrada: 2,0,ESTE
+
+# Estación salida: fila,columna
+salida: 2,4
+
+# Obstáculos: 3 obstáculos simples
+obstaculos:
+1,2
+3,2
+2,3

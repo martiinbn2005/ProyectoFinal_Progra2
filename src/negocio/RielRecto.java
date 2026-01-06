@@ -7,9 +7,20 @@ public class RielRecto extends Rieles {
 
     @Override
     public String obtenerSalida(String entrada) {
-        // Lógica: Si entra por el NORTE, sale por el SUR (y viceversa)
-        if (entrada.equals("NORTE")) return "SUR";
-        if (entrada.equals("SUR")) return "NORTE";
-        return "DESCARRILAMIENTO";
+        // Interpretación según la orientación:
+        // orientacion 0/180 -> vertical (NORTE<->SUR)
+        // orientacion 90/270 -> horizontal (ESTE<->OESTE)
+        int orient = getOrientacion() % 360;
+        if (orient < 0) orient += 360;
+
+        if (orient == 0 || orient == 180) {
+            if (entrada.equals("NORTE")) return "SUR";
+            if (entrada.equals("SUR")) return "NORTE";
+            return "DESCARRILAMIENTO";
+        } else { // 90 or 270
+            if (entrada.equals("ESTE")) return "OESTE";
+            if (entrada.equals("OESTE")) return "ESTE";
+            return "DESCARRILAMIENTO";
+        }
     }
 }
