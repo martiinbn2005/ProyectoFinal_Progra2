@@ -20,8 +20,10 @@ public abstract class Obstaculo {
         return posX;
     }
 
-    public void setPosX(int posX) throws Exception {
-        if (posX < 0) throw new Exception("La posición X no puede ser negativa.");
+    public void setPosX(int posX) throws IllegalArgumentException {
+        if (posX < 0) {
+            throw new IllegalArgumentException("La posición X no puede ser negativa. Valor: " + posX);
+        }
         this.posX = posX;
     }
 
@@ -29,8 +31,10 @@ public abstract class Obstaculo {
         return posY;
     }
 
-    public void setPosY(int posY) throws Exception {
-        if (posY < 0) throw new Exception("La posición Y no puede ser negativa.");
+    public void setPosY(int posY) throws IllegalArgumentException {
+        if (posY < 0) {
+            throw new IllegalArgumentException("La posición Y no puede ser negativa. Valor: " + posY);
+        }
         this.posY = posY;
     }
 
@@ -38,9 +42,9 @@ public abstract class Obstaculo {
         return nombre;
     }
 
-    public void setNombre(String nombre) throws Exception {
+    public void setNombre(String nombre) throws IllegalArgumentException {
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new Exception("El nombre del obstáculo es obligatorio.");
+            throw new IllegalArgumentException("El nombre del obstáculo es obligatorio y no puede estar vacío.");
         }
         this.nombre = nombre;
     }

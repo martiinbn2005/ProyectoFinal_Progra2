@@ -63,13 +63,19 @@ public class Nivel {
 
     /**
      * Permite agregar un obstáculo al nivel y marcarlo en la matriz.
+     * @param obstaculo el obstáculo a agregar
+     * @throws Exception si el obstáculo está fuera de límites
+     * @throws IllegalArgumentException si el obstáculo es nulo
      */
     public void agregarObstaculo(Obstaculo obstaculo) throws Exception {
+        if (obstaculo == null) {
+            throw new IllegalArgumentException("Obstáculo no puede ser nulo");
+        }
         int x = obstaculo.getPosX();
         int y = obstaculo.getPosY();
 
         if (x < 0 || x >= filas || y < 0 || y >= columnas) {
-            throw new Exception("El obstáculo está fuera de los límites del mapa.");
+            throw new Exception("El obstáculo está fuera de los límites del mapa. Coordenadas: (" + x + "," + y + "), Tamaño mapa: " + filas + "x" + columnas);
         }
 
         this.obstaculos.add(obstaculo);
@@ -120,9 +126,20 @@ public class Nivel {
         return java.util.Optional.empty();
     }
 
+    /**
+     * Agrega un riel al nivel con validaciones.
+     * @param riel el riel a agregar
+     * @throws Exception si el riel no se puede colocar en la posición indicada
+     * @throws IllegalArgumentException si el riel es nulo
+     */
     public void agregarRiel(Rieles riel) throws Exception {
+        if (riel == null) {
+            throw new IllegalArgumentException("Riel no puede ser nulo");
+        }
         java.util.Optional<String> motivo = puedeColocarRiel(riel.getPosX(), riel.getPosY(), riel);
-        if (motivo.isPresent()) throw new Exception("Imposible colocar riel: " + motivo.get());
+        if (motivo.isPresent()) {
+            throw new Exception("Imposible colocar riel en posición (" + riel.getPosX() + "," + riel.getPosY() + "): " + motivo.get());
+        }
         this.rieles.add(riel);
     }
 

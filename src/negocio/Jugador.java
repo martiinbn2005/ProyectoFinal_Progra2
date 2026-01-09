@@ -50,11 +50,14 @@ public class Jugador {
 
     /**
      * Registra un nuevo intento de nivel para el jugador.
+     * @param nuevoIntento el intento a registrar
+     * @throws IllegalArgumentException si el intento es nulo
      */
-    public void registrarIntento(Intento nuevoIntento) {
-        if (nuevoIntento != null) {
-            this.historialIntentos.add(nuevoIntento);
+    public void registrarIntento(Intento nuevoIntento) throws IllegalArgumentException {
+        if (nuevoIntento == null) {
+            throw new IllegalArgumentException("No se puede registrar un intento nulo");
         }
+        this.historialIntentos.add(nuevoIntento);
     }
 
     @Override

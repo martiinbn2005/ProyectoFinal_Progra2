@@ -132,34 +132,46 @@ public class NivelManager {
 
             // procesar estaciones
             if (entradaStr != null) {
-                String[] p = entradaStr.split(",");
-                if (p.length < 3) throw new Exception("Entrada inválida en plantilla: " + entradaStr);
-                int ex = Integer.parseInt(p[0].trim());
-                int ey = Integer.parseInt(p[1].trim());
-                String dir = p[2].trim();
-                nivel.setEstacionInicio(ex, ey, dir);
+                try {
+                    String[] p = entradaStr.split(",");
+                    if (p.length < 3) throw new Exception("Entrada inválida en plantilla: " + entradaStr);
+                    int ex = Integer.parseInt(p[0].trim());
+                    int ey = Integer.parseInt(p[1].trim());
+                    String dir = p[2].trim();
+                    nivel.setEstacionInicio(ex, ey, dir);
+                } catch (NumberFormatException e) {
+                    throw new Exception("Formato numérico inválido en entrada de plantilla '" + entradaStr + "': " + e.getMessage());
+                }
             }
             if (salidaStr != null) {
-                String[] p = salidaStr.split(",");
-                if (p.length < 2) throw new Exception("Salida inválida en plantilla: " + salidaStr);
-                int sx = Integer.parseInt(p[0].trim());
-                int sy = Integer.parseInt(p[1].trim());
-                nivel.setEstacionFin(sx, sy);
+                try {
+                    String[] p = salidaStr.split(",");
+                    if (p.length < 2) throw new Exception("Salida inválida en plantilla: " + salidaStr);
+                    int sx = Integer.parseInt(p[0].trim());
+                    int sy = Integer.parseInt(p[1].trim());
+                    nivel.setEstacionFin(sx, sy);
+                } catch (NumberFormatException e) {
+                    throw new Exception("Formato numérico inválido en salida de plantilla '" + salidaStr + "': " + e.getMessage());
+                }
             }
 
             // procesar obstaculos
             for (String o : obstLines) {
-                String[] p = o.split(",");
-                if (p.length < 2) continue;
-                int ox = Integer.parseInt(p[0].trim());
-                int oy = Integer.parseInt(p[1].trim());
-                String tipo = p.length >= 3 ? p[2].trim().toUpperCase() : "PIEDRA";
-                // Por ahora solo se soporta PIEDRA
-                if ("PIEDRA".equals(tipo)) {
-                    nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
-                } else {
-                    // fallback a piedra si tipo desconocido
-                    nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
+                try {
+                    String[] p = o.split(",");
+                    if (p.length < 2) continue;
+                    int ox = Integer.parseInt(p[0].trim());
+                    int oy = Integer.parseInt(p[1].trim());
+                    String tipo = p.length >= 3 ? p[2].trim().toUpperCase() : "PIEDRA";
+                    // Por ahora solo se soporta PIEDRA
+                    if ("PIEDRA".equals(tipo)) {
+                        nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
+                    } else {
+                        // fallback a piedra si tipo desconocido
+                        nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
+                    }
+                } catch (NumberFormatException e) {
+                    throw new Exception("Formato numérico inválido en obstáculo '" + o + "': " + e.getMessage());
                 }
             }
 

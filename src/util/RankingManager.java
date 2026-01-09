@@ -15,14 +15,35 @@ public class RankingManager {
         this.jugadores = new HashMap<>();
     }
 
-    public void registrarJugador(Jugador j) {
-        if (j == null) return;
+    /**
+     * Registra un jugador en el ranking.
+     * @param j el jugador a registrar
+     * @throws IllegalArgumentException si el jugador es nulo
+     */
+    public void registrarJugador(Jugador j) throws IllegalArgumentException {
+        if (j == null) {
+            throw new IllegalArgumentException("No se puede registrar un jugador nulo");
+        }
         jugadores.put(j.getIdJugador(), j);
         mejoresPuntajes.putIfAbsent(j.getIdJugador(), 0);
     }
 
-    public void actualizarConIntento(Jugador j, Intento intento) {
-        if (j == null || intento == null || intento.getPuntajeObtenido() == null) return;
+    /**
+     * Actualiza el ranking con un nuevo intento.
+     * @param j el jugador que realiza el intento
+     * @param intento el intento realizado
+     * @throws IllegalArgumentException si jugador o intento son inválidos
+     */
+    public void actualizarConIntento(Jugador j, Intento intento) throws IllegalArgumentException {
+        if (j == null) {
+            throw new IllegalArgumentException("Jugador no puede ser nulo para actualizar ranking");
+        }
+        if (intento == null) {
+            throw new IllegalArgumentException("Intento no puede ser nulo para actualizar ranking");
+        }
+        if (intento.getPuntajeObtenido() == null) {
+            throw new IllegalStateException("El intento no tiene puntaje calculado");
+        }
         int valor = intento.getPuntajeObtenido().getValorNumerico();
         int id = j.getIdJugador();
         mejoresPuntajes.putIfAbsent(id, 0);

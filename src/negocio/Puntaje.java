@@ -19,9 +19,9 @@ public class Puntaje {
         return valorNumerico;
     }
 
-    public void setValorNumerico(int valorNumerico) throws Exception {
+    public void setValorNumerico(int valorNumerico) throws IllegalArgumentException {
         if (valorNumerico < 0) {
-            throw new Exception("El puntaje no puede ser un valor negativo.");
+            throw new IllegalArgumentException("El puntaje no puede ser un valor negativo. Valor: " + valorNumerico);
         }
         this.valorNumerico = valorNumerico;
     }

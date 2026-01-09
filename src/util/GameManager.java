@@ -10,7 +10,6 @@ import negocio.Rieles;
 public class GameManager {
 
     private Juego juego;
-    private ScoreCalculator scoreCalculator;
     private RankingManager rankingManager;
 
     // Campos para el modo construcción
@@ -40,39 +39,55 @@ public class GameManager {
     /**
      * El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
      * se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
+     * @throws Exception si hay error al simular o finalizar el intento
      */
     public Puntaje playNivel() throws Exception {
-        if (nivelEnConstruccion == null) throw new Exception("No hay un nivel en construcción");
+        if (nivelEnConstruccion == null) {
+            throw new IllegalStateException("No hay un nivel en construcción. Debe llamar a iniciarConstruccion() primero.");
+        }
 
-        double tiempoSegundos = (System.currentTimeMillis() - this.construccionStartMillis) / 1000.0;
-        int rielesUsados = nivelEnConstruccion.getRieles().size();
+        try {
+            double tiempoSegundos = (System.currentTimeMillis() - this.construccionStartMillis) / 1000.0;
+            int rielesUsados = nivelEnConstruccion.getRieles().size();
 
-        Intento intento = new Intento(rielesUsados);
-        intento.setTiempoSegundos(tiempoSegundos); // tiempo usado para construir la ruta
+            Intento intento = new Intento(rielesUsados);
+            intento.setTiempoSegundos(tiempoSegundos); // tiempo usado para construir la ruta
 
-        // Simular salida del tren
-        boolean exito = simularTren(nivelEnConstruccion);
-        intento.setEsExitoso(exito);
+            // Simular salida del tren
+            boolean exito = simularTren(nivelEnConstruccion);
+            intento.setEsExitoso(exito);
 
-        // Finalizar intento (calcular puntaje y registrar)
-        Puntaje puntaje = finalizarIntento(nivelEnConstruccion, intento);
+            // Finalizar intento (calcular puntaje y registrar)
+            Puntaje puntaje = finalizarIntento(nivelEnConstruccion, intento);
 
-        // Reset estado de construcción
-        this.nivelEnConstruccion = null;
-
-        return puntaje;
+            return puntaje;
+        } catch (Exception e) {
+            throw new Exception("Error al reproducir nivel: " + e.getMessage(), e);
+        } finally {
+            // Reset estado de construcción incluso si hay error
+            this.nivelEnConstruccion = null;
+        }
     }
 
     /**
      * Simula el recorrido del tren por la matriz de rieles del nivel.
      * Retorna true si alcanza la estación de fin, false si choca o descarrila.
+     * @throws Exception si el nivel o su configuración es inválida
      */
-    private boolean simularTren(Nivel nivel) {
-        if (nivel == null) return false;
+    private boolean simularTren(Nivel nivel) throws Exception {
+        if (nivel == null) {
+            throw new IllegalArgumentException("Nivel no puede ser nulo para simular tren");
+        }
 
         int[][] mapa = nivel.getMapaMatriz();
+        if (mapa == null || mapa.length == 0) {
+            throw new IllegalStateException("Mapa del nivel no configurado o vacío");
+        }
         int rows = mapa.length;
-        int cols = mapa[0].length;
+        int cols = (rows > 0) ? mapa[0].length : 0;
+        if (cols == 0) {
+            throw new IllegalStateException("Mapa del nivel sin columnas válidas");
+        }
 
         int x = nivel.getEntradaX();
         int y = nivel.getEntradaY();
@@ -126,19 +141,34 @@ public class GameManager {
     }
 
     public Puntaje finalizarIntento(Nivel nivel, Intento intento) throws Exception {
-        if (nivel == null || intento == null) throw new Exception("Nivel e Intento requeridos");
+        if (nivel == null) {
+            throw new IllegalArgumentException("Nivel no puede ser nulo para finalizar intento");
+        }
+        if (intento == null) {
+            throw new IllegalArgumentException("Intento no puede ser nulo para finalizar");
+        }
 
-        // Calcular puntaje
-        Puntaje puntaje = ScoreCalculator.calcularPuntaje(intento, nivel);
-        intento.setPuntajeObtenido(puntaje);
+        try {
+            // Calcular puntaje
+            Puntaje puntaje = ScoreCalculator.calcularPuntaje(intento, nivel);
+            intento.setPuntajeObtenido(puntaje);
 
-        // Registrar intento para el jugador actual
-        Jugador j = juego.getJugadorActual();
-        if (j != null) j.registrarIntento(intento);
+            // Registrar intento para el jugador actual
+            Jugador j = juego.getJugadorActual();
+            if (j != null) {
+                j.registrarIntento(intento);
+            }
 
-        // Actualizar ranking
-        rankingManager.actualizarConIntento(j, intento);
+            // Actualizar ranking
+            if (j != null) {
+                rankingManager.actualizarConIntento(j, intento);
+            }
 
-        return puntaje;
+            return puntaje;
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new Exception("Error al finalizar intento: " + e.getMessage(), e);
+        }
     }
 }

@@ -37,9 +37,9 @@ public abstract class Rieles {
         return posX;
     }
 
-    public void setPosX(int posX) throws Exception{
+    public void setPosX(int posX) throws IllegalArgumentException {
         if (posX < 0) {
-            throw new Exception("La coordenada X del riel no puede ser negativa.");
+            throw new IllegalArgumentException("La coordenada X del riel no puede ser negativa. Valor: " + posX);
         }
         this.posX = posX;
     }
@@ -48,9 +48,9 @@ public abstract class Rieles {
         return posY;
     }
 
-    public void setPosY(int posY) throws Exception{
+    public void setPosY(int posY) throws IllegalArgumentException {
         if (posY < 0) {
-            throw new Exception("La coordenada Y del riel no puede ser negativa.");
+            throw new IllegalArgumentException("La coordenada Y del riel no puede ser negativa. Valor: " + posY);
         }
         this.posY = posY;
     }

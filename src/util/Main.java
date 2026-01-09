@@ -1,19 +1,21 @@
 package util;
 
 import negocio.*;
+import java.io.FileNotFoundException;
 
  // Demo simple para ejecutar la lógica del dominio sin interfaz gráfica
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        // Inicializar managers
-        NivelManager nivelManager = new NivelManager();
-        RankingManager rankingManager = new RankingManager();
-        Juego juego = new Juego();
-        GameManager gameManager = new GameManager(juego, rankingManager);
+    public static void main(String[] args) {
+        try {
+            // Inicializar managers
+            NivelManager nivelManager = new NivelManager();
+            RankingManager rankingManager = new RankingManager();
+            Juego juego = new Juego();
+            GameManager gameManager = new GameManager(juego, rankingManager);
 
-        // Crear exactamente 3 niveles (FÁCIL, MEDIO, DIFICIL) desde plantillas
-        nivelManager.crearNivelesPorDefecto();
+            // Crear exactamente 3 niveles (FÁCIL, MEDIO, DIFICIL) desde plantillas
+            nivelManager.crearNivelesPorDefecto();
 
         Nivel nivel1 = nivelManager.obtenerNivelPorNumero(1);
         Nivel nivel2 = nivelManager.obtenerNivelPorNumero(2);
@@ -82,6 +84,16 @@ public class Main {
             System.out.println(j + " - Mejor puntaje: " + mejor);
         }
 
-        System.out.println("Demo de lógica concluido.");
+            System.out.println("Demo de lógica concluido.");
+        } catch (FileNotFoundException e) {
+            System.err.println("ERROR: Archivo de nivel no encontrado - " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("ERROR: Formato numérico inválido en archivo de plantilla - " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("ERROR: Argumento inválido - " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("ERROR inesperado durante la ejecución - " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
