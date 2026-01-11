@@ -1,0 +1,30 @@
+# Nivel 3 - DIFICIL
+# Mapa 9x9 con muchos obstáculos
+
+numero: 3
+
+dificultad: DIFICIL
+
+filas: 9
+columnas: 9
+
+# Estación inicio: fila,columna,direccion
+entrada: 4,0,ESTE
+
+# Estación salida: fila,columna
+salida: 4,8
+
+# Obstáculos: 12 obstáculos simples distribuidos
+obstaculos:
+2,2
+2,4
+2,6
+4,2
+4,4
+4,6
+6,2
+6,4
+6,6
+3,5
+5,3
+5,7
