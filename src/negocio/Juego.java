@@ -12,9 +12,11 @@ public class Juego {
     private List<Nivel> niveles;
     private Nivel nivelActivo;
 
-    public Juego() {
+    public Juego() throws Exception {
         this.niveles = new ArrayList<>();
-        // Aquí se puede inicializar los 3 niveles
+        if (this.niveles == null) {
+            throw new Exception("Error al inicializar lista de niveles");
+        }
     }
 
     // Getters y Setters con Validaciones

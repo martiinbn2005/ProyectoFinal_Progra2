@@ -10,8 +10,8 @@ public class RielCurvo extends Rieles {
 
     private String tipoCurva;
 
-    public RielCurvo(int posX, int posY, String tipoCurva) throws Exception{
-        super(posX, posY);
+    public RielCurvo(int posX, int posY, int orientacion, String tipoCurva) throws Exception{
+        super(posX, posY, orientacion);
         this.setTipoCurva(tipoCurva);
     }
 
@@ -19,9 +19,9 @@ public class RielCurvo extends Rieles {
         return tipoCurva;
     }
 
-    public void setTipoCurva(String tipoCurva) throws Exception{
-        if (tipoCurva == null) {
-            throw new Exception("El tipo de curva no puede ser nulo.");
+    public void setTipoCurva(String tipoCurva) throws IllegalArgumentException {
+        if (tipoCurva == null || tipoCurva.trim().isEmpty()) {
+            throw new IllegalArgumentException("El tipo de curva no puede ser nulo o vacío.");
         }
         this.tipoCurva = tipoCurva;
     }

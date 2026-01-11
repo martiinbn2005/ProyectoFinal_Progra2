@@ -1,26 +1,28 @@
 package negocio;
 
 public class RielRecto extends Rieles {
-    private boolean esVertical; // true: N-S, false: E-O
-
-    public RielRecto(int posX, int posY, boolean esVertical) throws Exception {
-        super(posX, posY);
-        this.esVertical = esVertical;
-    }
-
-    public boolean isEsVertical() {
-        return esVertical;
+    public RielRecto(int posX, int posY, int orientacion) throws Exception {
+        super(posX, posY, orientacion);
     }
 
     @Override
     public String obtenerSalida(String entrada) {
-        if (!esVertical) { // Riel Horizontal
-            if (entrada.equals(OESTE)) return ESTE;
-            if (entrada.equals(ESTE)) return OESTE;
-        } else { // Riel Vertical
-            if (entrada.equals(NORTE)) return SUR;
-            if (entrada.equals(SUR)) return NORTE;
+        // Interpretación según la orientación:
+        // orientacion 0/180 -> vertical (NORTE<->SUR)
+        // orientacion 90/270 -> horizontal (ESTE<->OESTE)
+        int orient = getOrientacion() % 360;
+        if (orient < 0) orient += 360;
+
+        if (orient == 0 || orient == 180) {
+            // Riel vertical
+            if (entrada.equals("NORTE")) return "SUR";
+            if (entrada.equals("SUR")) return "NORTE";
+            return "DESCARRILAMIENTO";
+        } else {
+            // Riel horizontal (90 or 270)
+            if (entrada.equals("ESTE")) return "OESTE";
+            if (entrada.equals("OESTE")) return "ESTE";
+            return "DESCARRILAMIENTO";
         }
-        return "DESCARRILAMIENTO";
     }
 }

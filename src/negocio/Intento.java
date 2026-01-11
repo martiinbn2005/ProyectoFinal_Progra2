@@ -36,9 +36,9 @@ public class Intento {
         return tiempoSegundos;
     }
 
-    public void setTiempoSegundos(double tiempoSegundos) throws Exception {
+    public void setTiempoSegundos(double tiempoSegundos) throws IllegalArgumentException {
         if (tiempoSegundos < 0) {
-            throw new Exception("El tiempo de ejecución no puede ser negativo.");
+            throw new IllegalArgumentException("El tiempo de ejecución no puede ser negativo. Valor: " + tiempoSegundos);
         }
         this.tiempoSegundos = tiempoSegundos;
     }
@@ -47,9 +47,9 @@ public class Intento {
         return cantidadRielesUsados;
     }
 
-    public void setCantidadRielesUsados(int cantidadRielesUsados) throws Exception {
+    public void setCantidadRielesUsados(int cantidadRielesUsados) throws IllegalArgumentException {
         if (cantidadRielesUsados < 0) {
-            throw new Exception("La cantidad de rieles no puede ser negativa.");
+            throw new IllegalArgumentException("La cantidad de rieles no puede ser negativa. Valor: " + cantidadRielesUsados);
         }
         this.cantidadRielesUsados = cantidadRielesUsados;
     }
