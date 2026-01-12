@@ -1,9 +1,7 @@
 package negocio;
 
-/*
-Clase abstracta que representa un tramo de vía en el mapa.
-Define la estructura base y las constantes de dirección.
- */
+//clase abstracta que representa un tramo de vía en el mapa define la estructura base y las constantes de dirección
+
 public abstract class Rieles {
 
     //constantes de dirección
@@ -24,9 +22,7 @@ public abstract class Rieles {
         this.setOrientacion(orientacion);
     }
 
-    //métodos abstractos
-
-    //Determina por dónde sale el tren dado un punto de entrada.
+    //determina por dónde sale el tren dado un punto de entrada
     public abstract String obtenerSalida(String entrada);
 
     //getters y setters con validaciones

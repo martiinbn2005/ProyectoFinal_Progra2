@@ -7,9 +7,7 @@ public class RielRecto extends Rieles {
 
     @Override
     public String obtenerSalida(String entrada) {
-        //interpretación según la orientación:
-        //orientacion 0/180 -> vertical (norte<->sur)
-        //orientacion 90/270 -> horizontal (este<->oeste)
+        //interpretación según la orientación: orientacion 0/180 -> vertical (norte<->sur) orientacion 90/270 -> horizontal (este<->oeste)
         int orient = getOrientacion() % 360;
         if (orient < 0) orient += 360;
 

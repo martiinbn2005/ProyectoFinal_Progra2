@@ -27,21 +27,14 @@ public class GameManager {
         rankingManager.registrarJugador(jugador);
     }
 
-    //Marca el inicio del tiempo de construcción para un nivel.
+    //marca el inicio del tiempo de construcción para un nivel
     public void iniciarConstruccion(Nivel nivel) throws Exception {
         if (nivel == null) throw new Exception("Nivel nulo");
         this.nivelEnConstruccion = nivel;
         this.construccionStartMillis = System.currentTimeMillis();
     }
 
-    /**
-     El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
-     se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
-     @throws Exception si hay error al simular o finalizar el intento
-    El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
-    se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
-    @throws Exception si hay error al simular o finalizar el intento
-    */
+    //el jugador presiona "play": se calcula el tiempo de construcción, se crea el intento, se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro)
     public Puntaje playNivel() throws Exception {
         if (nivelEnConstruccion == null) {
             throw new IllegalStateException("No hay un nivel en construcción. Debe llamar a iniciarConstruccion() primero.");
@@ -52,30 +45,25 @@ public class GameManager {
             int rielesUsados = nivelEnConstruccion.getRieles().size();
 
             Intento intento = new Intento(rielesUsados);
-            intento.setTiempoSegundos(tiempoSegundos); // tiempo usado para construir la ruta
+            intento.setTiempoSegundos(tiempoSegundos); //tiempo usado para construir la ruta
 
-            // Simular salida del tren
+            //simular salida del tren
             boolean exito = simularTren(nivelEnConstruccion);
             intento.setEsExitoso(exito);
 
-            // Finalizar intento (calcular puntaje y registrar)
+            //finalizar intento (calcular puntaje y registrar)
             Puntaje puntaje = finalizarIntento(nivelEnConstruccion, intento);
 
             return puntaje;
         } catch (Exception e) {
             throw new Exception("Error al reproducir nivel: " + e.getMessage(), e);
         } finally {
-            // Reset estado de construcción incluso si hay error
+            //reset estado de construcción incluso si hay error
             this.nivelEnConstruccion = null;
         }
     }
 
-    //
-    //Simula el recorrido del tren por la matriz de rieles del nivel.
-    //Retorna true si alcanza la estación de fin, false si choca o descarrila.
-    //@throws Exception si el nivel o su configuración es inválida
-    //
-
+    //simula el recorrido del tren por la matriz de rieles del nivel. retorna true si alcanza la estación de fin, false si choca o descarrila
     private boolean simularTren(Nivel nivel) throws Exception {
         if (nivel == null) {
             throw new IllegalArgumentException("Nivel no puede ser nulo para simular tren");

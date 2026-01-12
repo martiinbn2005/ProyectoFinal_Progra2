@@ -25,10 +25,7 @@ public class Main {
             Jugador jugador = new Jugador(1, "Ana");
             gameManager.iniciarPartida(jugador);
 
-            // --- modo construcción + play para el nivel 1 ---
-            // el nivel1 ya tiene entrada/salida y obstáculos configurados desde la plantilla
-            //plantilla: entrada (2,0), salida (2,4), obstáculos en (0,2), (3,2) sin bloquear ruta
-            //ruta directa por fila 2: (2,0) -> (2,1) -> (2,2) -> (2,3) -> (2,4)
+            //modo construcción + play para el nivel 1 el nivel1 ya tiene entrada/salida y obstáculos configurados desde la plantilla plantilla: entrada (2,0), salida (2,4), obstáculos en (0,2), (3,2) sin bloquear ruta ruta directa por fila 2: (2,0) -> (2,1) -> (2,2) -> (2,3) -> (2,4)
 
             //orientación 90 para rieles horizontales (este<->oeste)
             nivelManager.agregarRiel(nivel1, new RielRecto(2, 1, 90));  //(2,1)

@@ -4,21 +4,20 @@ import interfaz.MenuPrincipal;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-/**
- * Clase principal - Punto de entrada del programa
- */
+//clase principal punto de entrada del programa
+
 public class MainGUI {
 
     public static void main(String[] args) {
-        // Configurar Look and Feel del sistema operativo
+        //configurar look and feel del sistema operativo
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            // Si falla, usar el Look and Feel por defecto
+            //si falla, usar el look and feel por defecto
             System.out.println("No se pudo establecer el Look and Feel del sistema");
         }
 
-        // Ejecutar la interfaz gráfica en el Event Dispatch Thread
+        //ejecutar la interfaz gráfica en el event dispatch thread
         SwingUtilities.invokeLater(() -> {
             try {
                 MenuPrincipal menu = new MenuPrincipal();

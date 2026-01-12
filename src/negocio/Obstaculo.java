@@ -1,7 +1,7 @@
 package negocio;
 
- // Clase abstracta que representa un obstáculo en el mapa.
- 
+//clase abstracta que representa un obstáculo en el mapa
+
 public abstract class Obstaculo {
     private int posX;
     private int posY;

@@ -3,8 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
- // Clase que representa al usuario en el sistema.
- 
+//clase que representa al usuario en el sistema
+
 public class Jugador {
     private int idJugador;
     private String nombre;

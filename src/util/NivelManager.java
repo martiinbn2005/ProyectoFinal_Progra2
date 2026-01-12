@@ -4,10 +4,7 @@ import negocio.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Gestor de niveles del juego.
- * Crea y administra los niveles predefinidos.
- */
+//gestor de niveles del juego crea y administra los niveles predefinidos
 public class NivelManager {
 
     private List<Nivel> niveles;
@@ -16,13 +13,11 @@ public class NivelManager {
         this.niveles = new ArrayList<>();
     }
 
-    /**
-     * Crea los 3 niveles por defecto del juego: Fácil, Medio y Difícil
-     */
+    //crea los 3 niveles por defecto del juego: fácil, medio y difícil
     public void crearNivelesPorDefecto() throws Exception {
         niveles.clear();
 
-        // Nivel 1: FÁCIL (5x5)
+        //nivel 1: fácil (5x5)
         Nivel nivel1 = new Nivel(1, "FACIL", 5, 5);
         nivel1.setEstacionInicio(2, 0, "ESTE");
         nivel1.setEstacionFin(2, 4);
@@ -30,7 +25,7 @@ public class NivelManager {
         nivel1.agregarObstaculo(new Piedra(4, 2));
         niveles.add(nivel1);
 
-        // Nivel 2: MEDIO (6x7)
+        //nivel 2: medio (6x7)
         Nivel nivel2 = new Nivel(2, "MEDIO", 6, 7);
         nivel2.setEstacionInicio(2, 0, "ESTE");
         nivel2.setEstacionFin(4, 6);
@@ -40,7 +35,7 @@ public class NivelManager {
         nivel2.agregarObstaculo(new Piedra(4, 4));
         niveles.add(nivel2);
 
-        // Nivel 3: DIFÍCIL (7x8)
+        //nivel 3: difícil (7x8)
         Nivel nivel3 = new Nivel(3, "DIFICIL", 7, 8);
         nivel3.setEstacionInicio(3, 0, "ESTE");
         nivel3.setEstacionFin(5, 7);
@@ -54,9 +49,7 @@ public class NivelManager {
         niveles.add(nivel3);
     }
 
-    /**
-     * Obtiene un nivel por su número
-     */
+    //obtiene un nivel por su número
     public Nivel obtenerNivelPorNumero(int numeroNivel) throws Exception {
         for (Nivel n : niveles) {
             if (n.getNumeroNivel() == numeroNivel) {
@@ -66,16 +59,12 @@ public class NivelManager {
         throw new Exception("Nivel no encontrado: " + numeroNivel);
     }
 
-    /**
-     * Obtiene todos los niveles
-     */
+    //obtiene todos los niveles
     public List<Nivel> obtenerTodosLosNiveles() {
         return new ArrayList<>(niveles);
     }
 
-    /**
-     * Agrega un riel a un nivel con validación
-     */
+    //agrega un riel a un nivel con validación
     public void agregarRiel(Nivel nivel, Rieles riel) throws Exception {
         if (nivel == null) {
             throw new IllegalArgumentException("Nivel no puede ser nulo");

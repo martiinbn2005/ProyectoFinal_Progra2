@@ -3,9 +3,8 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-//clase principal.
-//actúa como el contenedor global de la partida.
- 
+//clase principal actúa como el contenedor global de la partida
+
 public class Juego {
     private Jugador jugadorActual;
     private List<Nivel> niveles;

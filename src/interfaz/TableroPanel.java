@@ -6,9 +6,7 @@ import java.awt.event.*;
 import java.util.List;
 import negocio.*;
 
-/**
- * Panel que muestra el tablero del juego y permite colocar rieles
- */
+//panel que muestra el tablero del juego y permite colocar rieles
 public class TableroPanel extends JPanel {
 
     private Nivel nivel;
@@ -16,12 +14,12 @@ public class TableroPanel extends JPanel {
     private int filas;
     private int columnas;
 
-    // Colores EXACTOS como aparecen en la leyenda
+    //colores exactos como aparecen en la leyenda
     private final Color COLOR_VACIO = new Color(245, 245, 245);
-    private final Color COLOR_INICIO = new Color(46, 125, 50);      // Verde de la leyenda
-    private final Color COLOR_FIN = new Color(198, 40, 40);         // Rojo de la leyenda
-    private final Color COLOR_OBSTACULO = new Color(97, 97, 97);    // Gris de la leyenda
-    private final Color COLOR_RIEL = new Color(25, 118, 210);       // Azul de la leyenda
+    private final Color COLOR_INICIO = new Color(46, 125, 50);      //verde de la leyenda
+    private final Color COLOR_FIN = new Color(198, 40, 40);         //rojo de la leyenda
+    private final Color COLOR_OBSTACULO = new Color(97, 97, 97);    //gris de la leyenda
+    private final Color COLOR_RIEL = new Color(25, 118, 210);       //azul de la leyenda
 
     public TableroPanel(Nivel nivel) {
         this.nivel = nivel;
