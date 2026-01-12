@@ -16,12 +16,21 @@ public class TableroPanel extends JPanel {
     private int filas;
     private int columnas;
 
+<<<<<<< HEAD
     // Colores EXACTOS como aparecen en la leyenda
     private final Color COLOR_VACIO = new Color(245, 245, 245);
     private final Color COLOR_INICIO = new Color(46, 125, 50);      // Verde de la leyenda
     private final Color COLOR_FIN = new Color(198, 40, 40);         // Rojo de la leyenda
     private final Color COLOR_OBSTACULO = new Color(97, 97, 97);    // Gris de la leyenda
     private final Color COLOR_RIEL = new Color(25, 118, 210);       // Azul de la leyenda
+=======
+    //colores
+    private final Color COLOR_VACIO = Color.WHITE;
+    private final Color COLOR_INICIO = new Color(34, 139, 34);
+    private final Color COLOR_FIN = new Color(220, 20, 60);
+    private final Color COLOR_OBSTACULO = new Color(128, 128, 128);
+    private final Color COLOR_RIEL = new Color(70, 130, 180);
+>>>>>>> 59b6db44a5257da67ceb97f6962bd6be270423a6
 
     public TableroPanel(Nivel nivel) {
         this.nivel = nivel;
@@ -57,7 +66,7 @@ public class TableroPanel extends JPanel {
 
         add(gridPanel, BorderLayout.CENTER);
 
-        // Panel de leyenda
+        //panel de leyenda
         JPanel leyenda = crearLeyenda();
         add(leyenda, BorderLayout.SOUTH);
     }
@@ -71,21 +80,21 @@ public class TableroPanel extends JPanel {
         celda.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         celda.setPreferredSize(new Dimension(70, 70));
 
-        // Configurar según el tipo de celda
+        //configurar según el tipo de celda
         switch (tipoCelda) {
-            case 0: // Vacío - puede colocar rieles
+            case 0: //vacío - puede colocar rieles
                 celda.setBackground(COLOR_VACIO);
                 celda.setForeground(Color.BLACK);
                 celda.setText("");
                 celda.setEnabled(true);
 
-                // Acción: abrir menú de rieles
+                //acción: abrir menú de rieles
                 final int f = fila;
                 final int c = col;
                 celda.addActionListener(e -> mostrarMenuRieles(f, c, celda));
                 break;
 
-            case 1: // Estación inicio
+            case 1: //estación inicio
                 celda.setBackground(COLOR_INICIO);
                 celda.setForeground(Color.WHITE);
                 celda.setText("🚂");
@@ -93,7 +102,7 @@ public class TableroPanel extends JPanel {
                 celda.setDisabledIcon(null);
                 break;
 
-            case 2: // Estación fin
+            case 2: //estación fin
                 celda.setBackground(COLOR_FIN);
                 celda.setForeground(Color.WHITE);
                 celda.setText("🏁");
@@ -101,7 +110,7 @@ public class TableroPanel extends JPanel {
                 celda.setDisabledIcon(null);
                 break;
 
-            case 3: // Obstáculo
+            case 3: //obstáculo
                 celda.setBackground(COLOR_OBSTACULO);
                 celda.setForeground(Color.WHITE);
                 celda.setText("🪨");
@@ -114,12 +123,12 @@ public class TableroPanel extends JPanel {
     }
 
     private void mostrarMenuRieles(int fila, int col, JButton celda) {
-        // Verificar si ya hay un riel colocado
+        //verificar si ya hay un riel colocado
         Rieles rielExistente = nivel.obtenerRielEn(fila, col);
         if (rielExistente != null) {
             int opcion = JOptionPane.showConfirmDialog(this,
-                    "Ya hay un riel en esta posición.\n¿Deseas eliminarlo?",
-                    "Riel existente", JOptionPane.YES_NO_OPTION);
+                    "ya hay un riel en esta posición.\n¿deseas eliminarlo?",
+                    "riel existente", JOptionPane.YES_NO_OPTION);
 
             if (opcion == JOptionPane.YES_OPTION) {
                 eliminarRiel(fila, col, celda);
@@ -127,20 +136,20 @@ public class TableroPanel extends JPanel {
             return;
         }
 
-        // Mostrar menú de opciones de rieles
+        //mostrar menú de opciones de rieles
         String[] opciones = {
-                "━ Riel Recto Horizontal",
-                "┃ Riel Recto Vertical",
-                "┐ Curva Superior Derecha",
-                "┌ Curva Superior Izquierda",
-                "└ Curva Inferior Derecha",
-                "┘ Curva Inferior Izquierda",
-                "Cancelar"
+                "━ riel recto horizontal",
+                "┃ riel recto vertical",
+                "┐ curva superior derecha",
+                "┌ curva superior izquierda",
+                "└ curva inferior derecha",
+                "┘ curva inferior izquierda",
+                "cancelar"
         };
 
         int seleccion = JOptionPane.showOptionDialog(this,
-                "Selecciona el tipo de riel:",
-                "Colocar Riel en (" + fila + "," + col + ")",
+                "selecciona el tipo de riel:",
+                "colocar riel en (" + fila + "," + col + ")",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -158,53 +167,69 @@ public class TableroPanel extends JPanel {
             String simbolo = "";
 
             switch (tipoRiel) {
-                case 0: // Horizontal
+                case 0: //horizontal
                     nuevoRiel = new RielRecto(fila, col, 90);
                     simbolo = "━";
                     break;
-                case 1: // Vertical
+                case 1: //vertical
                     nuevoRiel = new RielRecto(fila, col, 0);
                     simbolo = "┃";
                     break;
-                case 2: // Curva Superior Derecha
+                case 2: //curva superior derecha
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_DER);
                     simbolo = "┐";
                     break;
-                case 3: // Curva Superior Izquierda
+                case 3: //curva superior izquierda
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_IZQ);
                     simbolo = "┌";
                     break;
-                case 4: // Curva Inferior Derecha
+                case 4: //curva inferior derecha
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_DER);
                     simbolo = "└";
                     break;
-                case 5: // Curva Inferior Izquierda
+                case 5: //curva inferior izquierda
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_IZQ);
                     simbolo = "┘";
                     break;
             }
 
-            // Intentar agregar el riel al nivel
+            //intentar agregar el riel al nivel
             nivel.agregarRiel(nuevoRiel);
 
-            // Actualizar visualmente la celda
+            //actualizar visualmente la celda
             celda.setBackground(COLOR_RIEL);
             celda.setForeground(Color.WHITE);
             celda.setText(simbolo);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
-                    "No se puede colocar el riel:\n" + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    "no se puede colocar el riel:\n" + ex.getMessage(),
+                    "error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void eliminarRiel(int fila, int col, JButton celda) {
+<<<<<<< HEAD
         // Usar el nuevo método eliminarRiel() de Nivel
         boolean eliminado = nivel.eliminarRiel(fila, col);
 
         if (eliminado) {
             // Restaurar visualmente la celda
+=======
+        //buscar y eliminar el riel de la lista
+        Rieles rielAEliminar = null;
+        for (Rieles r : nivel.getRieles()) {
+            if (r.getPosX() == fila && r.getPosY() == col) {
+                rielAEliminar = r;
+                break;
+            }
+        }
+
+        if (rielAEliminar != null) {
+            nivel.getRieles().remove(rielAEliminar);
+
+            //restaurar visualmente la celda
+>>>>>>> 59b6db44a5257da67ceb97f6962bd6be270423a6
             celda.setBackground(COLOR_VACIO);
             celda.setForeground(Color.BLACK);
             celda.setText("");

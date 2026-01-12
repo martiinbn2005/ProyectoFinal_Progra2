@@ -16,10 +16,10 @@ public class RankingManager {
     }
 
     /**
-     * Registra un jugador en el ranking.
-     * @param j el jugador a registrar
-     * @throws IllegalArgumentException si el jugador es nulo
-     */
+    Registra un jugador en el ranking.
+    @param j el jugador a registrar
+    @throws IllegalArgumentException si el jugador es nulo
+    */
     public void registrarJugador(Jugador j) throws IllegalArgumentException {
         if (j == null) {
             throw new IllegalArgumentException("No se puede registrar un jugador nulo");
@@ -29,11 +29,11 @@ public class RankingManager {
     }
 
     /**
-     * Actualiza el ranking con un nuevo intento.
-     * @param j el jugador que realiza el intento
-     * @param intento el intento realizado
-     * @throws IllegalArgumentException si jugador o intento son inválidos
-     */
+    Actualiza el ranking con un nuevo intento.
+    @param j el jugador que realiza el intento
+    @param intento el intento realizado
+    @throws IllegalArgumentException si jugador o intento son inválidos
+    */
     public void actualizarConIntento(Jugador j, Intento intento) throws IllegalArgumentException {
         if (j == null) {
             throw new IllegalArgumentException("Jugador no puede ser nulo para actualizar ranking");
@@ -52,7 +52,7 @@ public class RankingManager {
         }
     }
 
-    // jugadores ordenados por puntaje descendente.
+    //jugadores ordenados por puntaje descendente.
     public List<Jugador> obtenerTopN(int n) {
         List<Map.Entry<Integer, Integer>> list = new ArrayList<>(mejoresPuntajes.entrySet());
         list.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
@@ -65,9 +65,8 @@ public class RankingManager {
         return out;
     }
 
-    /**
-     * Devuelve el mejor puntaje conocido para un jugador (0 si no existe).
-     */
+    
+    // devuelve el mejor puntaje conocido para un jugador (0 si no existe).
     public int obtenerMejorPuntaje(int idJugador) {
         return this.mejoresPuntajes.getOrDefault(idJugador, 0);
     }

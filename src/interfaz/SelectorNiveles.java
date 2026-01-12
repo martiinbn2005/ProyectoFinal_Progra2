@@ -7,9 +7,8 @@ import util.NivelManager;
 import negocio.Jugador;
 import negocio.Nivel;
 
-/**
- * Ventana para seleccionar el nivel a jugar
- */
+ //ventana para seleccionar el nivel a jugar
+ 
 public class SelectorNiveles extends JFrame {
 
     private MenuPrincipal menuPrincipal;

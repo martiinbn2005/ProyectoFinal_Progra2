@@ -1,37 +1,35 @@
 package negocio;
 
-/**
- * Clase abstracta que representa un tramo de vía en el mapa.
- * Define la estructura base y las constantes de dirección.
+/*
+Clase abstracta que representa un tramo de vía en el mapa.
+Define la estructura base y las constantes de dirección.
  */
 public abstract class Rieles {
 
-    // Constantes de Dirección
+    //constantes de dirección
     public static final String NORTE = "NORTE";
     public static final String SUR = "SUR";
-    public static final String ESTE = "ESTE";   // Derecha
-    public static final String OESTE = "OESTE"; // Izquierda
+    public static final String ESTE = "ESTE";   //derecha
+    public static final String OESTE = "OESTE"; //izquierda
 
-    //  Atributos
+    //atributos
     private int posX;
     private int posY;
-    private int orientacion; // 0, 90, 180, 270 grados
+    private int orientacion; //0, 90, 180, 270 grados
 
-    // Constructor
+    //constructor
     public Rieles(int posX, int posY, int orientacion) throws Exception {
         this.setPosX(posX);
         this.setPosY(posY);
         this.setOrientacion(orientacion);
     }
 
-    // Métodos Abstractos
+    //métodos abstractos
 
-    /**
-     * Determina por dónde sale el tren dado un punto de entrada.
-     */
+    //Determina por dónde sale el tren dado un punto de entrada.
     public abstract String obtenerSalida(String entrada);
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public int getPosX() {
         return posX;

@@ -2,9 +2,8 @@ package negocio;
 
 import java.time.LocalDateTime;
 
-/**
- * Representa una ejecución de un nivel por parte de un jugador.
- */
+ //representa una ejecución de un nivel por parte de un jugador.
+ 
 public class Intento {
     private LocalDateTime fechaHora;
     private boolean esExitoso;

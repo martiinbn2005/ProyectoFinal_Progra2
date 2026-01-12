@@ -3,10 +3,9 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase principal.
- * Actúa como el contenedor global de la partida.
- */
+//clase principal.
+//actúa como el contenedor global de la partida.
+ 
 public class Juego {
     private Jugador jugadorActual;
     private List<Nivel> niveles;
@@ -19,7 +18,7 @@ public class Juego {
         }
     }
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public Jugador getJugadorActual() {
         return jugadorActual;

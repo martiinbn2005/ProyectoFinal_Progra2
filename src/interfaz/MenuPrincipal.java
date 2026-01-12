@@ -8,9 +8,8 @@ import util.RankingManager;
 import negocio.Juego;
 import negocio.Jugador;
 
-/**
- * Ventana principal del juego - Menú de inicio
- */
+ //Ventana principal del juego - Menú de inicio
+ 
 public class MenuPrincipal extends JFrame {
 
     private GameManager gameManager;
@@ -178,7 +177,7 @@ public class MenuPrincipal extends JFrame {
 
     private void mostrarInstrucciones() {
         String instrucciones =
-                "🎯 OBJETIVO DEL JUEGO\n\n" +
+                "OBJETIVO DEL JUEGO\n\n" +
                         "Construye una ruta de rieles desde la estación de INICIO (izquierda)\n" +
                         "hasta la estación de FIN (derecha) para que el tren llegue a salvo.\n\n" +
                         "🛤️ CÓMO JUGAR\n\n" +
@@ -211,6 +210,6 @@ public class MenuPrincipal extends JFrame {
         scrollPane.setPreferredSize(new Dimension(500, 400));
 
         JOptionPane.showMessageDialog(this, scrollPane,
-                "📖 Instrucciones", JOptionPane.INFORMATION_MESSAGE);
+                "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
     }
 }

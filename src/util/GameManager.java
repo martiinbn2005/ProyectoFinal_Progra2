@@ -12,7 +12,7 @@ public class GameManager {
     private Juego juego;
     private RankingManager rankingManager;
 
-    // Campos para el modo construcción
+    //campos para el modo construcción
     private long construccionStartMillis;
     private Nivel nivelEnConstruccion;
 
@@ -27,6 +27,10 @@ public class GameManager {
         rankingManager.registrarJugador(jugador);
     }
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 59b6db44a5257da67ceb97f6962bd6be270423a6
     //Marca el inicio del tiempo de construcción para un nivel.
     public void iniciarConstruccion(Nivel nivel) throws Exception {
         if (nivel == null) throw new Exception("Nivel nulo");
@@ -35,10 +39,17 @@ public class GameManager {
     }
 
     /**
+<<<<<<< HEAD
      El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
      se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
      @throws Exception si hay error al simular o finalizar el intento
      */
+=======
+    El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
+    se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
+    @throws Exception si hay error al simular o finalizar el intento
+    */
+>>>>>>> 59b6db44a5257da67ceb97f6962bd6be270423a6
     public Puntaje playNivel() throws Exception {
         if (nivelEnConstruccion == null) {
             throw new IllegalStateException("No hay un nivel en construcción. Debe llamar a iniciarConstruccion() primero.");
@@ -72,6 +83,10 @@ public class GameManager {
     //Retorna true si alcanza la estación de fin, false si choca o descarrila.
     //@throws Exception si el nivel o su configuración es inválida
     //
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 59b6db44a5257da67ceb97f6962bd6be270423a6
     private boolean simularTren(Nivel nivel) throws Exception {
         if (nivel == null) {
             throw new IllegalArgumentException("Nivel no puede ser nulo para simular tren");
@@ -92,7 +107,7 @@ public class GameManager {
         String dir = nivel.getEntradaDireccion();
         if (x < 0 || y < 0 || dir == null) return false;
 
-        int maxSteps = rows * cols * 4; // para evitar loops infinitos
+        int maxSteps = rows * cols * 4; //para evitar loops infinitos
         for (int step = 0; step < maxSteps; step++) {
             int nx = x, ny = y;
             if ("NORTE".equals(dir)) nx--;
@@ -101,27 +116,27 @@ public class GameManager {
             else if ("ESTE".equals(dir)) ny++;
             else return false;
 
-            if (nx < 0 || nx >= rows || ny < 0 || ny >= cols) return false; // sale del mapa
+            if (nx < 0 || nx >= rows || ny < 0 || ny >= cols) return false; //sale del mapa
 
-            // Si llega a estación fin, solo es éxito si entra desde la izquierda (moviendo hacia ESTE)
+            //si llega a estación fin, solo es éxito si entra desde la izquierda (moviendo hacia este)
             if (nx == nivel.getSalidaX() && ny == nivel.getSalidaY()) {
                 if ("ESTE".equals(dir)) return true;
                 else return false;
             }
 
-            // Si choca con obstáculo
+            //si choca con obstáculo
             if (mapa[nx][ny] == 3) return false;
 
-            // Debe haber un riel en la celda
+            //debe haber un riel en la celda
             Rieles r = nivel.obtenerRielEn(nx, ny);
             if (r == null) return false;
 
-            // Determinar por qué lado entra (opuesto a la dirección de movimiento)
+            //determinar por qué lado entra (opuesto a la dirección de movimiento)
             String entradaSide = oppositeDirection(dir);
             String salidaSide = r.obtenerSalida(entradaSide);
             if ("DESCARRILAMIENTO".equals(salidaSide)) return false;
 
-            // Actualizar dirección y posición
+            //actualizar dirección y posición
             dir = salidaSide;
             x = nx;
             y = ny;
@@ -147,17 +162,17 @@ public class GameManager {
         }
 
         try {
-            // Calcular puntaje
+            //calcular puntaje
             Puntaje puntaje = ScoreCalculator.calcularPuntaje(intento, nivel);
             intento.setPuntajeObtenido(puntaje);
 
-            // Registrar intento para el jugador actual
+            //registrar intento para el jugador actual
             Jugador j = juego.getJugadorActual();
             if (j != null) {
                 j.registrarIntento(intento);
             }
 
-            // Actualizar ranking
+            //actualizar ranking
             if (j != null) {
                 rankingManager.actualizarConIntento(j, intento);
             }
