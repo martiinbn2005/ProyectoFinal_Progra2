@@ -5,9 +5,9 @@ import java.awt.*;
 import negocio.Puntaje;
 import negocio.Nivel;
 
-
- //ventana que muestra el resultado del intento
- 
+/**
+ * Ventana que muestra el resultado del intento
+ */
 public class VentanaResultado extends JFrame {
 
     private VentanaJuego ventanaJuego;
