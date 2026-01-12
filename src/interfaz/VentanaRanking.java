@@ -38,7 +38,7 @@ public class VentanaRanking extends JFrame {
         panelPrincipal.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Título
-        JLabel titulo = new JLabel("🏆 TOP 10 MEJORES JUGADORES", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("TOP 10 MEJORES JUGADORES", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         titulo.setForeground(new Color(25, 25, 112));
         panelPrincipal.add(titulo, BorderLayout.NORTH);
