@@ -8,9 +8,8 @@ import util.RankingManager;
 import negocio.Jugador;
 import java.util.List;
 
-/**
- * Ventana que muestra el ranking de mejores jugadores
- */
+ // Ventana que muestra el ranking de mejores jugadores
+ 
 public class VentanaRanking extends JFrame {
 
     private MenuPrincipal menuPrincipal;

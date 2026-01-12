@@ -3,22 +3,21 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que representa al usuario en el sistema.
- */
+ // Clase que representa al usuario en el sistema.
+ 
 public class Jugador {
     private int idJugador;
     private String nombre;
-    private List<Intento> historialIntentos; // Relación 1 a muchos con Intento
+    private List<Intento> historialIntentos; //relación 1 a muchos con intento
 
-    // Constructor
+    //constructor
     public Jugador(int idJugador, String nombre) throws Exception {
         this.setIdJugador(idJugador);
         this.setNombre(nombre);
         this.historialIntentos = new ArrayList<>();
     }
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public int getIdJugador() {
         return idJugador;
@@ -46,12 +45,12 @@ public class Jugador {
         return new ArrayList<>(historialIntentos);
     }
 
-    // Métodos
+    //métodos
 
     /**
-     * Registra un nuevo intento de nivel para el jugador.
-     * @param nuevoIntento el intento a registrar
-     * @throws IllegalArgumentException si el intento es nulo
+    Registra un nuevo intento de nivel para el jugador.
+    @param nuevoIntento el intento a registrar
+    @throws IllegalArgumentException si el intento es nulo
      */
     public void registrarIntento(Intento nuevoIntento) throws IllegalArgumentException {
         if (nuevoIntento == null) {

@@ -4,9 +4,7 @@ import interfaz.MenuPrincipal;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-/**
- * Clase principal - Punto de entrada del programa
- */
+ //Clase principal - Punto de entrada del programa
 public class MainGUI {
 
     public static void main(String[] args) {

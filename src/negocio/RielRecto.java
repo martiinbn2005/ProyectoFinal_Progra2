@@ -7,19 +7,19 @@ public class RielRecto extends Rieles {
 
     @Override
     public String obtenerSalida(String entrada) {
-        // Interpretación según la orientación:
-        // orientacion 0/180 -> vertical (NORTE<->SUR)
-        // orientacion 90/270 -> horizontal (ESTE<->OESTE)
+        //interpretación según la orientación:
+        //orientacion 0/180 -> vertical (norte<->sur)
+        //orientacion 90/270 -> horizontal (este<->oeste)
         int orient = getOrientacion() % 360;
         if (orient < 0) orient += 360;
 
         if (orient == 0 || orient == 180) {
-            // Riel vertical
+            //riel vertical
             if (entrada.equals("NORTE")) return "SUR";
             if (entrada.equals("SUR")) return "NORTE";
             return "DESCARRILAMIENTO";
         } else {
-            // Riel horizontal (90 or 270)
+            //riel horizontal (90 or 270)
             if (entrada.equals("ESTE")) return "OESTE";
             if (entrada.equals("OESTE")) return "ESTE";
             return "DESCARRILAMIENTO";

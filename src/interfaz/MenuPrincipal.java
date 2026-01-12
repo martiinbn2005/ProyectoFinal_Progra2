@@ -8,9 +8,8 @@ import util.RankingManager;
 import negocio.Juego;
 import negocio.Jugador;
 
-/**
- * Ventana principal del juego - Menú de inicio
- */
+ //Ventana principal del juego - Menú de inicio
+ 
 public class MenuPrincipal extends JFrame {
 
     private GameManager gameManager;

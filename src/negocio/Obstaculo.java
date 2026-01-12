@@ -1,8 +1,7 @@
 package negocio;
 
-/**
- * Clase abstracta que representa un obstáculo en el mapa.
- */
+ // Clase abstracta que representa un obstáculo en el mapa.
+ 
 public abstract class Obstaculo {
     private int posX;
     private int posY;
@@ -14,7 +13,7 @@ public abstract class Obstaculo {
         this.setNombre(nombre);
     }
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public int getPosX() {
         return posX;
@@ -49,8 +48,8 @@ public abstract class Obstaculo {
         this.nombre = nombre;
     }
 
-    /**
-     * Método abstracto que definirá cómo afecta el obstáculo al tren.
-     */
+    
+    //Método abstracto que definirá cómo afecta el obstáculo al tren.
+     
     public abstract String getTipoEfecto();
 }

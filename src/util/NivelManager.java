@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//Responsable de crear y validar niveles (uso del dominio sin interfaz gráfica)
+// Responsable de crear y validar niveles (uso del dominio sin interfaz gráfica)
 
 public class NivelManager {
 
@@ -20,13 +20,13 @@ public class NivelManager {
 
     public void crearNivelesPorDefecto() throws Exception {
         this.niveles.clear();
-        // Cargar los 3 niveles desde plantillas predefinidas
+        //cargar los 3 niveles desde plantillas predefinidas
         try {
             this.cargarDesdePlantilla("resources/levels/level1.lvl");
             this.cargarDesdePlantilla("resources/levels/level2.lvl");
             this.cargarDesdePlantilla("resources/levels/level3.lvl");
         } catch (Exception ex) {
-            // Si falla la carga de plantillas, crear niveles vacíos como fallback
+            //si falla la carga de plantillas, crear niveles vacíos como fallback
             System.err.println("Advertencia: no se pudieron cargar plantillas, creando niveles vacíos: " + ex.getMessage());
             this.niveles.add(new Nivel(1, "FACIL", 5, 5));
             this.niveles.add(new Nivel(2, "MEDIO", 7, 7));
@@ -45,7 +45,7 @@ public class NivelManager {
         nivel.agregarObstaculo(obstaculo);
     }
 
-    // Nuevos helpers para rieles y estaciones
+    //nuevos helpers para rieles y estaciones
     public void agregarRiel(Nivel nivel, Rieles riel) throws Exception {
         if (nivel == null) throw new Exception("Nivel nulo");
         if (riel == null) throw new Exception("Riel nulo");
@@ -67,16 +67,16 @@ public class NivelManager {
             try {
                 if (n.getNumeroNivel() == numero) return n;
             } catch (Exception ex) {
-                // ignoramos
+                //ignoramos
             }
         }
         return null;
     }
 
-    /**
-     * Carga un nivel a partir de una plantilla en disco (formato simple definido en resources/levels).
-     * El archivo usa líneas "clave:valor" y una sección "obstaculos:" seguida de líneas "x,y[,TIPO]".
-     * Devuelve el Nivel creado y lo añade a la lista interna de niveles.
+    /*
+    Carga un nivel a partir de una plantilla (formato simple definido en resources/levels).
+    El archivo usa líneas "clave:valor" y una sección "obstaculos:" seguida de líneas "x,y[,TIPO]".
+    devuelve el Nivel creado y lo añade a la lista interna de niveles.
      */
     public Nivel cargarDesdePlantilla(String path) throws Exception {
         java.io.File f = new java.io.File(path);
@@ -125,37 +125,37 @@ public class NivelManager {
             }
 
             if (numero == null || dificultad == null || filas == null || columnas == null) {
-                throw new Exception("Plantilla incompleta: faltan campos obligatorios (numero, dificultad, filas, columnas)");
+                throw new Exception("plantilla incompleta: faltan campos obligatorios (numero, dificultad, filas, columnas)");
             }
 
             Nivel nivel = new Nivel(numero, dificultad, filas, columnas);
 
-            // procesar estaciones
+            //procesar estaciones
             if (entradaStr != null) {
                 try {
                     String[] p = entradaStr.split(",");
-                    if (p.length < 3) throw new Exception("Entrada inválida en plantilla: " + entradaStr);
+                    if (p.length < 3) throw new Exception("entrada inválida en plantilla: " + entradaStr);
                     int ex = Integer.parseInt(p[0].trim());
                     int ey = Integer.parseInt(p[1].trim());
                     String dir = p[2].trim();
                     nivel.setEstacionInicio(ex, ey, dir);
                 } catch (NumberFormatException e) {
-                    throw new Exception("Formato numérico inválido en entrada de plantilla '" + entradaStr + "': " + e.getMessage());
+                    throw new Exception("formato numérico inválido en entrada de plantilla '" + entradaStr + "': " + e.getMessage());
                 }
             }
             if (salidaStr != null) {
                 try {
                     String[] p = salidaStr.split(",");
-                    if (p.length < 2) throw new Exception("Salida inválida en plantilla: " + salidaStr);
+                    if (p.length < 2) throw new Exception("salida inválida en plantilla: " + salidaStr);
                     int sx = Integer.parseInt(p[0].trim());
                     int sy = Integer.parseInt(p[1].trim());
                     nivel.setEstacionFin(sx, sy);
                 } catch (NumberFormatException e) {
-                    throw new Exception("Formato numérico inválido en salida de plantilla '" + salidaStr + "': " + e.getMessage());
+                    throw new Exception("formato numérico inválido en salida de plantilla '" + salidaStr + "': " + e.getMessage());
                 }
             }
 
-            // procesar obstaculos
+            //procesar obstaculos
             for (String o : obstLines) {
                 try {
                     String[] p = o.split(",");
@@ -163,15 +163,15 @@ public class NivelManager {
                     int ox = Integer.parseInt(p[0].trim());
                     int oy = Integer.parseInt(p[1].trim());
                     String tipo = p.length >= 3 ? p[2].trim().toUpperCase() : "PIEDRA";
-                    // Por ahora solo se soporta PIEDRA
+                    //por ahora solo se soporta piedra
                     if ("PIEDRA".equals(tipo)) {
                         nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
                     } else {
-                        // fallback a piedra si tipo desconocido
+                        //fallback a piedra si tipo desconocido
                         nivel.agregarObstaculo(new negocio.Piedra(ox, oy));
                     }
                 } catch (NumberFormatException e) {
-                    throw new Exception("Formato numérico inválido en obstáculo '" + o + "': " + e.getMessage());
+                    throw new Exception("formato numérico inválido en obstáculo '" + o + "': " + e.getMessage());
                 }
             }
 

@@ -8,6 +8,6 @@ public class Piedra extends Obstaculo {
 
     @Override
     public String getTipoEfecto() {
-        return "BLOQUEO TOTAL"; // El tren choca inmediatamente
+        return "BLOQUEO TOTAL"; //el tren choca inmediatamente
     }
 }

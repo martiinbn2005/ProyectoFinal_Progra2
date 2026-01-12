@@ -1,11 +1,10 @@
 package negocio;
 
-/**
- * Clase que representa la evaluación del desempeño del jugador en un intento.
- */
+ //Clase que representa la evaluación del desempeño del jugador en un intento.
+
 public class Puntaje {
     private int valorNumerico;
-    private int estrellas; // Calificación de 1 a 3
+    private int estrellas; //calificación de 1 a 3
     private String descripcionDesempeño;
 
     public Puntaje(int valorNumerico) throws Exception {
@@ -13,7 +12,7 @@ public class Puntaje {
         this.calcularEstrellas();
     }
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public int getValorNumerico() {
         return valorNumerico;
@@ -34,11 +33,9 @@ public class Puntaje {
         return descripcionDesempeño;
     }
 
-    // Métodos
-
-    /**
-     * Define el rango de estrellas basado en el puntaje obtenido.
-     */
+    //métodos
+    // Define el rango de estrellas basado en el puntaje obtenido.
+    
     private void calcularEstrellas() {
         if (this.valorNumerico >= 90) {
             this.estrellas = 3;

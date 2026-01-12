@@ -3,18 +3,17 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Clase que define el escenario del juego.
- */
+ //clase que define el escenario del juego.
+ 
 public class Nivel {
     private int numeroNivel;
     private String dificultad;
     private int filas;
     private int columnas;
-    private int[][] mapaMatriz; // 0: Vacío, 1: Estación Inicio, 2: Estación Fin, 3: Obstáculo
+    private int[][] mapaMatriz; //0: vacío, 1: estación inicio, 2: estación fin, 3: obstáculo
     private List<Obstaculo> obstaculos;
 
-    // Nuevos campos para rieles y estaciones (entrada/salida)
+    //nuevos campos para rieles y estaciones (entrada/salida)
     private List<Rieles> rieles;
     private int entradaX = -1;
     private int entradaY = -1;
@@ -35,7 +34,7 @@ public class Nivel {
         this.rieles = new ArrayList<>();
     }
 
-    // Getters y Setters con Validaciones
+    //getters y setters con validaciones
 
     public int getNumeroNivel() {
         return numeroNivel;
@@ -59,13 +58,13 @@ public class Nivel {
         this.dificultad = dificultad;
     }
 
-    // Métodos
+    //métodos
 
     /**
-     * Permite agregar un obstáculo al nivel y marcarlo en la matriz.
-     * @param obstaculo el obstáculo a agregar
-     * @throws Exception si el obstáculo está fuera de límites
-     * @throws IllegalArgumentException si el obstáculo es nulo
+    Permite agregar un obstáculo al nivel y marcarlo en la matriz.
+    @param obstaculo el obstáculo a agregar
+    @throws Exception si el obstáculo está fuera de límites
+    @throws IllegalArgumentException si el obstáculo es nulo
      */
     public void agregarObstaculo(Obstaculo obstaculo) throws Exception {
         if (obstaculo == null) {
@@ -79,23 +78,23 @@ public class Nivel {
         }
 
         this.obstaculos.add(obstaculo);
-        this.mapaMatriz[x][y] = 3; // Se marca como obstáculo en la matriz
+        this.mapaMatriz[x][y] = 3; //se marca como obstáculo en la matriz
     }
 
-    // Métodos para rieles y estaciones (entrada/salida)
+    //métodos para rieles y estaciones (entrada/salida)
     public void setEstacionInicio(int x, int y, String direccion) throws Exception {
-        // La estación de inicio debe ubicarse en la columna izquierda (y == 0)
+        //la estación de inicio debe ubicarse en la columna izquierda (y == 0)
         if (x < 0 || x >= filas || y < 0 || y >= columnas) throw new Exception("Coordenadas fuera de rango para entrada.");
         if (y != 0) throw new Exception("La estación inicio debe estar en la columna izquierda (y=0) para iniciar desde la izquierda.");
         this.entradaX = x;
         this.entradaY = y;
-        // Forzamos que la estación de inicio siempre salga hacia la derecha (ESTE)
+        //forzamos que la estación de inicio siempre salga hacia la derecha (ESTE)
         this.entradaDireccion = "ESTE";
         this.mapaMatriz[x][y] = 1;
     }
 
     public void setEstacionFin(int x, int y) throws Exception {
-        // La estación de fin debe ubicarse en la columna derecha (y == columnas - 1)
+        //la estación de fin debe ubicarse en la columna derecha (y == columnas - 1)
         if (x < 0 || x >= filas || y < 0 || y >= columnas) throw new Exception("Coordenadas fuera de rango para salida.");
         if (y != (columnas - 1)) throw new Exception("La estación fin debe estar en la columna derecha para terminar en la derecha.");
         this.salidaX = x;
@@ -110,27 +109,27 @@ public class Nivel {
     public int getSalidaY() { return salidaY; }
 
     /**
-     * Verifica si es posible colocar un riel en (x,y) y devuelve
-     * Optional.empty() si se puede, o Optional con la razón en caso contrario.
+    Verifica si es posible colocar un riel en (x,y) y devuelve
+    Optional.empty() si se puede, o Optional con la razón en caso contrario.
      */
     public java.util.Optional<String> puedeColocarRiel(int x, int y, Rieles riel) {
-        if (riel == null) return java.util.Optional.of("Riel nulo");
-        if (x < 0 || x >= filas || y < 0 || y >= columnas) return java.util.Optional.of("Coordenadas fuera de rango para riel.");
-        // Si hay obstáculo en la matriz
-        if (this.mapaMatriz[x][y] == 3) return java.util.Optional.of("Celda ocupada por obstáculo.");
-        // No permitir colocar sobre estaciones
-        if (this.mapaMatriz[x][y] == 1) return java.util.Optional.of("No se puede colocar riel sobre estación inicio.");
-        if (this.mapaMatriz[x][y] == 2) return java.util.Optional.of("No se puede colocar riel sobre estación fin.");
-        // Evitar solapamiento de rieles
+        if (riel == null) return java.util.Optional.of("riel nulo");
+        if (x < 0 || x >= filas || y < 0 || y >= columnas) return java.util.Optional.of("coordenadas fuera de rango para riel.");
+        //si hay obstáculo en la matriz
+        if (this.mapaMatriz[x][y] == 3) return java.util.Optional.of("celda ocupada por obstáculo.");
+        //no permitir colocar sobre estaciones
+        if (this.mapaMatriz[x][y] == 1) return java.util.Optional.of("no se puede colocar riel sobre estación inicio.");
+        if (this.mapaMatriz[x][y] == 2) return java.util.Optional.of("no se puede colocar riel sobre estación fin.");
+        //evitar solapamiento de rieles
         if (obtenerRielEn(x, y) != null) return java.util.Optional.of("Ya existe un riel en la celda.");
         return java.util.Optional.empty();
     }
 
     /**
-     * Agrega un riel al nivel con validaciones.
-     * @param riel el riel a agregar
-     * @throws Exception si el riel no se puede colocar en la posición indicada
-     * @throws IllegalArgumentException si el riel es nulo
+    Agrega un riel al nivel con validaciones.
+    @param riel el riel a agregar
+    @throws Exception si el riel no se puede colocar en la posición indicada
+    @throws IllegalArgumentException si el riel es nulo
      */
     public void agregarRiel(Rieles riel) throws Exception {
         if (riel == null) {

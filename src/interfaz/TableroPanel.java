@@ -15,7 +15,7 @@ public class TableroPanel extends JPanel {
     private int filas;
     private int columnas;
 
-    // Colores
+    //colores
     private final Color COLOR_VACIO = Color.WHITE;
     private final Color COLOR_INICIO = new Color(34, 139, 34);
     private final Color COLOR_FIN = new Color(220, 20, 60);
@@ -55,7 +55,7 @@ public class TableroPanel extends JPanel {
 
         add(gridPanel, BorderLayout.CENTER);
 
-        // Panel de leyenda
+        //panel de leyenda
         JPanel leyenda = crearLeyenda();
         add(leyenda, BorderLayout.SOUTH);
     }
@@ -65,32 +65,32 @@ public class TableroPanel extends JPanel {
         celda.setFocusPainted(false);
         celda.setFont(new Font("Arial", Font.BOLD, 20));
 
-        // Configurar según el tipo de celda
+        //configurar según el tipo de celda
         switch (tipoCelda) {
-            case 0: // Vacío - puede colocar rieles
+            case 0: //vacío - puede colocar rieles
                 celda.setBackground(COLOR_VACIO);
                 celda.setText("");
                 celda.setEnabled(true);
 
-                // Acción: abrir menú de rieles
+                //acción: abrir menú de rieles
                 final int f = fila;
                 final int c = col;
                 celda.addActionListener(e -> mostrarMenuRieles(f, c, celda));
                 break;
 
-            case 1: // Estación inicio
+            case 1: //estación inicio
                 celda.setBackground(COLOR_INICIO);
                 celda.setText("🚂");
                 celda.setEnabled(false);
                 break;
 
-            case 2: // Estación fin
+            case 2: //estación fin
                 celda.setBackground(COLOR_FIN);
                 celda.setText("🏁");
                 celda.setEnabled(false);
                 break;
 
-            case 3: // Obstáculo
+            case 3: //obstáculo
                 celda.setBackground(COLOR_OBSTACULO);
                 celda.setText("🪨");
                 celda.setEnabled(false);
@@ -101,12 +101,12 @@ public class TableroPanel extends JPanel {
     }
 
     private void mostrarMenuRieles(int fila, int col, JButton celda) {
-        // Verificar si ya hay un riel colocado
+        //verificar si ya hay un riel colocado
         Rieles rielExistente = nivel.obtenerRielEn(fila, col);
         if (rielExistente != null) {
             int opcion = JOptionPane.showConfirmDialog(this,
-                    "Ya hay un riel en esta posición.\n¿Deseas eliminarlo?",
-                    "Riel existente", JOptionPane.YES_NO_OPTION);
+                    "ya hay un riel en esta posición.\n¿deseas eliminarlo?",
+                    "riel existente", JOptionPane.YES_NO_OPTION);
 
             if (opcion == JOptionPane.YES_OPTION) {
                 eliminarRiel(fila, col, celda);
@@ -114,20 +114,20 @@ public class TableroPanel extends JPanel {
             return;
         }
 
-        // Mostrar menú de opciones de rieles
+        //mostrar menú de opciones de rieles
         String[] opciones = {
-                "━ Riel Recto Horizontal",
-                "┃ Riel Recto Vertical",
-                "┐ Curva Superior Derecha",
-                "┌ Curva Superior Izquierda",
-                "└ Curva Inferior Derecha",
-                "┘ Curva Inferior Izquierda",
-                "Cancelar"
+                "━ riel recto horizontal",
+                "┃ riel recto vertical",
+                "┐ curva superior derecha",
+                "┌ curva superior izquierda",
+                "└ curva inferior derecha",
+                "┘ curva inferior izquierda",
+                "cancelar"
         };
 
         int seleccion = JOptionPane.showOptionDialog(this,
-                "Selecciona el tipo de riel:",
-                "Colocar Riel en (" + fila + "," + col + ")",
+                "selecciona el tipo de riel:",
+                "colocar riel en (" + fila + "," + col + ")",
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
@@ -145,49 +145,49 @@ public class TableroPanel extends JPanel {
             String simbolo = "";
 
             switch (tipoRiel) {
-                case 0: // Horizontal
+                case 0: //horizontal
                     nuevoRiel = new RielRecto(fila, col, 90);
                     simbolo = "━";
                     break;
-                case 1: // Vertical
+                case 1: //vertical
                     nuevoRiel = new RielRecto(fila, col, 0);
                     simbolo = "┃";
                     break;
-                case 2: // Curva Superior Derecha
+                case 2: //curva superior derecha
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_DER);
                     simbolo = "┐";
                     break;
-                case 3: // Curva Superior Izquierda
+                case 3: //curva superior izquierda
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_IZQ);
                     simbolo = "┌";
                     break;
-                case 4: // Curva Inferior Derecha
+                case 4: //curva inferior derecha
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_DER);
                     simbolo = "└";
                     break;
-                case 5: // Curva Inferior Izquierda
+                case 5: //curva inferior izquierda
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_IZQ);
                     simbolo = "┘";
                     break;
             }
 
-            // Intentar agregar el riel al nivel
+            //intentar agregar el riel al nivel
             nivel.agregarRiel(nuevoRiel);
 
-            // Actualizar visualmente la celda
+            //actualizar visualmente la celda
             celda.setBackground(COLOR_RIEL);
             celda.setText(simbolo);
             celda.setForeground(Color.WHITE);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
-                    "No se puede colocar el riel:\n" + ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    "no se puede colocar el riel:\n" + ex.getMessage(),
+                    "error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void eliminarRiel(int fila, int col, JButton celda) {
-        // Buscar y eliminar el riel de la lista
+        //buscar y eliminar el riel de la lista
         Rieles rielAEliminar = null;
         for (Rieles r : nivel.getRieles()) {
             if (r.getPosX() == fila && r.getPosY() == col) {
@@ -199,7 +199,7 @@ public class TableroPanel extends JPanel {
         if (rielAEliminar != null) {
             nivel.getRieles().remove(rielAEliminar);
 
-            // Restaurar visualmente la celda
+            //restaurar visualmente la celda
             celda.setBackground(COLOR_VACIO);
             celda.setText("");
         }
