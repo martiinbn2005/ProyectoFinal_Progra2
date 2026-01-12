@@ -3,6 +3,7 @@ package interfaz;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 import negocio.*;
 
 /**
@@ -15,12 +16,12 @@ public class TableroPanel extends JPanel {
     private int filas;
     private int columnas;
 
-    // Colores
-    private final Color COLOR_VACIO = Color.WHITE;
-    private final Color COLOR_INICIO = new Color(34, 139, 34);
-    private final Color COLOR_FIN = new Color(220, 20, 60);
-    private final Color COLOR_OBSTACULO = new Color(128, 128, 128);
-    private final Color COLOR_RIEL = new Color(70, 130, 180);
+    // Colores EXACTOS como aparecen en la leyenda
+    private final Color COLOR_VACIO = new Color(245, 245, 245);
+    private final Color COLOR_INICIO = new Color(46, 125, 50);      // Verde de la leyenda
+    private final Color COLOR_FIN = new Color(198, 40, 40);         // Rojo de la leyenda
+    private final Color COLOR_OBSTACULO = new Color(97, 97, 97);    // Gris de la leyenda
+    private final Color COLOR_RIEL = new Color(25, 118, 210);       // Azul de la leyenda
 
     public TableroPanel(Nivel nivel) {
         this.nivel = nivel;
@@ -39,8 +40,9 @@ public class TableroPanel extends JPanel {
 
     private void crearTablero() {
         JPanel gridPanel = new JPanel();
-        gridPanel.setLayout(new GridLayout(filas, columnas, 2, 2));
-        gridPanel.setBackground(new Color(200, 200, 200));
+        gridPanel.setLayout(new GridLayout(filas, columnas, 3, 3));
+        gridPanel.setBackground(new Color(100, 100, 100));
+        gridPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
         botonesCeldas = new JButton[filas][columnas];
         int[][] mapa = nivel.getMapaMatriz();
@@ -63,12 +65,17 @@ public class TableroPanel extends JPanel {
     private JButton crearCelda(int fila, int col, int tipoCelda) {
         JButton celda = new JButton();
         celda.setFocusPainted(false);
-        celda.setFont(new Font("Arial", Font.BOLD, 20));
+        celda.setFont(new Font("Segoe UI Emoji", Font.BOLD, 32));
+        celda.setOpaque(true);
+        celda.setBorderPainted(true);
+        celda.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        celda.setPreferredSize(new Dimension(70, 70));
 
         // Configurar según el tipo de celda
         switch (tipoCelda) {
             case 0: // Vacío - puede colocar rieles
                 celda.setBackground(COLOR_VACIO);
+                celda.setForeground(Color.BLACK);
                 celda.setText("");
                 celda.setEnabled(true);
 
@@ -80,20 +87,26 @@ public class TableroPanel extends JPanel {
 
             case 1: // Estación inicio
                 celda.setBackground(COLOR_INICIO);
+                celda.setForeground(Color.WHITE);
                 celda.setText("🚂");
                 celda.setEnabled(false);
+                celda.setDisabledIcon(null);
                 break;
 
             case 2: // Estación fin
                 celda.setBackground(COLOR_FIN);
+                celda.setForeground(Color.WHITE);
                 celda.setText("🏁");
                 celda.setEnabled(false);
+                celda.setDisabledIcon(null);
                 break;
 
             case 3: // Obstáculo
                 celda.setBackground(COLOR_OBSTACULO);
+                celda.setForeground(Color.WHITE);
                 celda.setText("🪨");
                 celda.setEnabled(false);
+                celda.setDisabledIcon(null);
                 break;
         }
 
@@ -176,8 +189,8 @@ public class TableroPanel extends JPanel {
 
             // Actualizar visualmente la celda
             celda.setBackground(COLOR_RIEL);
-            celda.setText(simbolo);
             celda.setForeground(Color.WHITE);
+            celda.setText(simbolo);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
@@ -187,27 +200,20 @@ public class TableroPanel extends JPanel {
     }
 
     private void eliminarRiel(int fila, int col, JButton celda) {
-        // Buscar y eliminar el riel de la lista
-        Rieles rielAEliminar = null;
-        for (Rieles r : nivel.getRieles()) {
-            if (r.getPosX() == fila && r.getPosY() == col) {
-                rielAEliminar = r;
-                break;
-            }
-        }
+        // Usar el nuevo método eliminarRiel() de Nivel
+        boolean eliminado = nivel.eliminarRiel(fila, col);
 
-        if (rielAEliminar != null) {
-            nivel.getRieles().remove(rielAEliminar);
-
+        if (eliminado) {
             // Restaurar visualmente la celda
             celda.setBackground(COLOR_VACIO);
+            celda.setForeground(Color.BLACK);
             celda.setText("");
         }
     }
 
     public void limpiarRieles() {
-        // Eliminar todos los rieles del nivel
-        nivel.getRieles().clear();
+        // Usar el nuevo método limpiarRieles() de Nivel
+        nivel.limpiarRieles();
 
         // Restaurar visualmente todas las celdas vacías
         int[][] mapa = nivel.getMapaMatriz();
@@ -215,6 +221,7 @@ public class TableroPanel extends JPanel {
             for (int j = 0; j < columnas; j++) {
                 if (mapa[i][j] == 0) { // Solo celdas vacías
                     botonesCeldas[i][j].setBackground(COLOR_VACIO);
+                    botonesCeldas[i][j].setForeground(Color.BLACK);
                     botonesCeldas[i][j].setText("");
                 }
             }
@@ -223,29 +230,31 @@ public class TableroPanel extends JPanel {
 
     private JPanel crearLeyenda() {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
         panel.setBackground(new Color(240, 248, 255));
 
-        panel.add(crearItemLeyenda("🚂 Inicio", COLOR_INICIO));
-        panel.add(crearItemLeyenda("🏁 Meta", COLOR_FIN));
-        panel.add(crearItemLeyenda("🪨 Obstáculo", COLOR_OBSTACULO));
-        panel.add(crearItemLeyenda("🛤️ Riel", COLOR_RIEL));
+        panel.add(crearItemLeyenda("Inicio", COLOR_INICIO));
+        panel.add(crearItemLeyenda("Meta", COLOR_FIN));
+        panel.add(crearItemLeyenda("Obstáculo", COLOR_OBSTACULO));
+        panel.add(crearItemLeyenda("Riel", COLOR_RIEL));
 
         return panel;
     }
 
     private JPanel crearItemLeyenda(String texto, Color color) {
         JPanel item = new JPanel();
-        item.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+        item.setLayout(new FlowLayout(FlowLayout.LEFT, 8, 0));
         item.setBackground(new Color(240, 248, 255));
 
         JPanel cuadro = new JPanel();
-        cuadro.setPreferredSize(new Dimension(20, 20));
+        cuadro.setPreferredSize(new Dimension(30, 30));
         cuadro.setBackground(color);
-        cuadro.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        cuadro.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        cuadro.setOpaque(true);
 
         JLabel etiqueta = new JLabel(texto);
-        etiqueta.setFont(new Font("Arial", Font.PLAIN, 12));
+        etiqueta.setFont(new Font("Arial", Font.BOLD, 14));
+        etiqueta.setForeground(Color.BLACK);
 
         item.add(cuadro);
         item.add(etiqueta);

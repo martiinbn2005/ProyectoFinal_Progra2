@@ -160,6 +160,8 @@ public class MenuPrincipal extends JFrame {
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
         boton.setMaximumSize(new Dimension(350, 50));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton.setOpaque(true);
+        boton.setBorderPainted(false);
 
         // Efecto hover
         boton.addMouseListener(new java.awt.event.MouseAdapter() {

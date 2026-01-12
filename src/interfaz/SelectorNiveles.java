@@ -87,6 +87,8 @@ public class SelectorNiveles extends JFrame {
         btnVolver.setForeground(Color.WHITE);
         btnVolver.setFocusPainted(false);
         btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnVolver.setOpaque(true);
+        btnVolver.setBorderPainted(false);
 
         btnVolver.addActionListener(e -> {
             menuPrincipal.setVisible(true);
@@ -138,6 +140,8 @@ public class SelectorNiveles extends JFrame {
         btnJugar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnJugar.setMaximumSize(new Dimension(150, 40));
         btnJugar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnJugar.setOpaque(true);
+        btnJugar.setBorderPainted(false);
 
         btnJugar.addActionListener(e -> {
             try {

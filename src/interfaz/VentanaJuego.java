@@ -126,6 +126,8 @@ public class VentanaJuego extends JFrame {
         btnPlay.setFocusPainted(false);
         btnPlay.setPreferredSize(new Dimension(150, 50));
         btnPlay.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnPlay.setOpaque(true);
+        btnPlay.setBorderPainted(false);
 
         btnPlay.addActionListener(e -> ejecutarSimulacion());
 
@@ -137,6 +139,8 @@ public class VentanaJuego extends JFrame {
         btnLimpiar.setFocusPainted(false);
         btnLimpiar.setPreferredSize(new Dimension(150, 50));
         btnLimpiar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnLimpiar.setOpaque(true);
+        btnLimpiar.setBorderPainted(false);
 
         btnLimpiar.addActionListener(e -> limpiarTablero());
 
@@ -148,6 +152,8 @@ public class VentanaJuego extends JFrame {
         btnVolver.setFocusPainted(false);
         btnVolver.setPreferredSize(new Dimension(150, 50));
         btnVolver.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnVolver.setOpaque(true);
+        btnVolver.setBorderPainted(false);
 
         btnVolver.addActionListener(e -> volverAlMenu());
 

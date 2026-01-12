@@ -27,9 +27,7 @@ public class GameManager {
         rankingManager.registrarJugador(jugador);
     }
 
-    /**
-     * Marca el inicio del tiempo de construcción para un nivel.
-     */
+    //Marca el inicio del tiempo de construcción para un nivel.
     public void iniciarConstruccion(Nivel nivel) throws Exception {
         if (nivel == null) throw new Exception("Nivel nulo");
         this.nivelEnConstruccion = nivel;
@@ -37,9 +35,9 @@ public class GameManager {
     }
 
     /**
-     * El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
-     * se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
-     * @throws Exception si hay error al simular o finalizar el intento
+     El jugador presiona "play": se calcula el tiempo de construcción, se crea el intento,
+     se simula la ejecución del tren y se finaliza el intento (cálculo de puntaje y registro).
+     @throws Exception si hay error al simular o finalizar el intento
      */
     public Puntaje playNivel() throws Exception {
         if (nivelEnConstruccion == null) {
@@ -69,11 +67,11 @@ public class GameManager {
         }
     }
 
-    /**
-     * Simula el recorrido del tren por la matriz de rieles del nivel.
-     * Retorna true si alcanza la estación de fin, false si choca o descarrila.
-     * @throws Exception si el nivel o su configuración es inválida
-     */
+    //
+    //Simula el recorrido del tren por la matriz de rieles del nivel.
+    //Retorna true si alcanza la estación de fin, false si choca o descarrila.
+    //@throws Exception si el nivel o su configuración es inválida
+    //
     private boolean simularTren(Nivel nivel) throws Exception {
         if (nivel == null) {
             throw new IllegalArgumentException("Nivel no puede ser nulo para simular tren");

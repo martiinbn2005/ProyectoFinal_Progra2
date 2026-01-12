@@ -107,58 +107,31 @@ public class VentanaResultado extends JFrame {
 
         // Descripción del desempeño
         if (puntaje.getValorNumerico() > 0) {
-            JTextArea txtDescripcion = new JTextArea(puntaje.getDescripcionDesempeño());
-            txtDescripcion.setFont(new Font("Arial", Font.ITALIC, 16));
-            txtDescripcion.setWrapStyleWord(true);
-            txtDescripcion.setLineWrap(true);
-            txtDescripcion.setEditable(false);
-            txtDescripcion.setOpaque(false);
-            txtDescripcion.setAlignmentX(Component.CENTER_ALIGNMENT);
-            txtDescripcion.setMaximumSize(new Dimension(400, 60));
-            txtDescripcion.setForeground(new Color(60, 60, 60));
+            JLabel lblDescripcion = new JLabel("<html><center>" + puntaje.getDescripcionDesempeño() + "</center></html>");
+            lblDescripcion.setFont(new Font("Arial", Font.ITALIC, 16));
+            lblDescripcion.setAlignmentX(Component.CENTER_ALIGNMENT);
+            lblDescripcion.setForeground(new Color(60, 60, 60));
 
-            panelPrincipal.add(txtDescripcion);
+            panelPrincipal.add(lblDescripcion);
         } else {
-            JTextArea txtFallo = new JTextArea("El tren no llegó a la meta.\n¡Revisa tu ruta e inténtalo de nuevo!");
-            txtFallo.setFont(new Font("Arial", Font.ITALIC, 14));
-            txtFallo.setWrapStyleWord(true);
-            txtFallo.setLineWrap(true);
-            txtFallo.setEditable(false);
-            txtFallo.setOpaque(false);
-            txtFallo.setAlignmentX(Component.CENTER_ALIGNMENT);
-            txtFallo.setMaximumSize(new Dimension(400, 60));
-            txtFallo.setForeground(new Color(139, 0, 0));
+            JLabel lblFallo = new JLabel("<html><center>El tren no llegó a la meta.<br>¡Revisa tu ruta e inténtalo de nuevo!</center></html>");
+            lblFallo.setFont(new Font("Arial", Font.ITALIC, 14));
+            lblFallo.setAlignmentX(Component.CENTER_ALIGNMENT);
+            lblFallo.setForeground(new Color(139, 0, 0));
 
-            panelPrincipal.add(txtFallo);
+            panelPrincipal.add(lblFallo);
         }
 
         panelPrincipal.add(Box.createVerticalStrut(40));
 
         // Botones de acción
-        JButton btnReintentar = crearBoton("🔄 REINTENTAR", new Color(34, 139, 34));
         JButton btnMenu = crearBoton("🏠 MENÚ PRINCIPAL", new Color(70, 130, 180));
-
-        btnReintentar.addActionListener(e -> {
-            try {
-                // Volver a jugar el mismo nivel (se abre nueva ventana de juego)
-                dispose();
-                // Aquí necesitarías recrear la VentanaJuego, pero necesitas el GameManager
-                // Por simplicidad, volvemos al menú
-                menuPrincipal.setVisible(true);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this,
-                        "Error al reintentar: " + ex.getMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
 
         btnMenu.addActionListener(e -> {
             menuPrincipal.setVisible(true);
             dispose();
         });
 
-        panelPrincipal.add(btnReintentar);
-        panelPrincipal.add(Box.createVerticalStrut(15));
         panelPrincipal.add(btnMenu);
 
         add(panelPrincipal);
@@ -198,6 +171,8 @@ public class VentanaResultado extends JFrame {
         boton.setAlignmentX(Component.CENTER_ALIGNMENT);
         boton.setMaximumSize(new Dimension(300, 50));
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        boton.setOpaque(true);
+        boton.setBorderPainted(false);
 
         // Efecto hover
         boton.addMouseListener(new java.awt.event.MouseAdapter() {

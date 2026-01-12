@@ -57,6 +57,8 @@ public class VentanaRanking extends JFrame {
         btnCerrar.setForeground(Color.WHITE);
         btnCerrar.setFocusPainted(false);
         btnCerrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnCerrar.setOpaque(true);
+        btnCerrar.setBorderPainted(false);
 
         btnCerrar.addActionListener(e -> dispose());
 

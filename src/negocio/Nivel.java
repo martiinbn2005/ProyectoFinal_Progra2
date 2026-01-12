@@ -14,7 +14,7 @@ public class Nivel {
     private int[][] mapaMatriz; // 0: Vacío, 1: Estación Inicio, 2: Estación Fin, 3: Obstáculo
     private List<Obstaculo> obstaculos;
 
-    // Nuevos campos para rieles y estaciones (entrada/salida)
+    // Campos para rieles y estaciones (entrada/salida)
     private List<Rieles> rieles;
     private int entradaX = -1;
     private int entradaY = -1;
@@ -141,6 +141,35 @@ public class Nivel {
             throw new Exception("Imposible colocar riel en posición (" + riel.getPosX() + "," + riel.getPosY() + "): " + motivo.get());
         }
         this.rieles.add(riel);
+    }
+
+    /**
+     * NUEVO: Elimina un riel en la posición especificada
+     * @param x coordenada fila
+     * @param y coordenada columna
+     * @return true si se eliminó, false si no había riel en esa posición
+     */
+    public boolean eliminarRiel(int x, int y) {
+        Rieles rielAEliminar = null;
+        for (Rieles r : rieles) {
+            if (r.getPosX() == x && r.getPosY() == y) {
+                rielAEliminar = r;
+                break;
+            }
+        }
+
+        if (rielAEliminar != null) {
+            rieles.remove(rielAEliminar);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * NUEVO: Elimina todos los rieles del nivel
+     */
+    public void limpiarRieles() {
+        rieles.clear();
     }
 
     public Rieles obtenerRielEn(int x, int y) {
