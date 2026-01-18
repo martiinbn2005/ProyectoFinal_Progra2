@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import util.GameManager;
 import negocio.*;
+//Ventana principal donde se juega - contiene el tablero y controles
 
-/**
- * Ventana principal donde se juega - contiene el tablero y controles
- */
 public class VentanaJuego extends JFrame {
 
     private MenuPrincipal menuPrincipal;
@@ -239,6 +237,8 @@ public class VentanaJuego extends JFrame {
             if (timerCronometro != null) {
                 timerCronometro.stop();
             }
+            // Limpiar todos los rieles del nivel antes de salir
+            nivel.limpiarRieles();
             menuPrincipal.setVisible(true);
             dispose();
         }

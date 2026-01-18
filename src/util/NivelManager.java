@@ -20,7 +20,7 @@ public class NivelManager {
         //nivel 1: fácil (5x5)
         Nivel nivel1 = new Nivel(1, "FACIL", 5, 5);
         nivel1.setEstacionInicio(2, 0, "ESTE");
-        nivel1.setEstacionFin(2, 4);
+        nivel1.setEstacionFin(1, 4);
         nivel1.agregarObstaculo(new Piedra(0, 2));
         nivel1.agregarObstaculo(new Piedra(4, 2));
         niveles.add(nivel1);

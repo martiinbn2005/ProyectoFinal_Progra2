@@ -31,24 +31,24 @@ public class RielCurvo extends Rieles {
         if (entrada == null) return "DESCARRILAMIENTO";
 
         switch (this.tipoCurva) {
-            case SUP_DER: //conecta norte y este
-                if (entrada.equals(NORTE)) return ESTE;
-                if (entrada.equals(ESTE)) return NORTE;
+            case SUP_DER: //superior derecha (┐): conecta ARRIBA-DERECHA
+                if (entrada.equals(NORTE)) return ESTE;   // Arriba -> Derecha
+                if (entrada.equals(ESTE)) return NORTE;   // Derecha -> Arriba
                 break;
 
-            case SUP_IZQ: //conecta norte y oeste
-                if (entrada.equals(NORTE)) return OESTE;
-                if (entrada.equals(OESTE)) return NORTE;
+            case SUP_IZQ: //superior izquierda (┌): conecta ARRIBA-IZQUIERDA
+                if (entrada.equals(NORTE)) return OESTE;  // Arriba -> Izquierda
+                if (entrada.equals(OESTE)) return NORTE;  // Izquierda -> Arriba
                 break;
 
-            case INF_DER: //conecta sur y este
-                if (entrada.equals(SUR)) return ESTE;
-                if (entrada.equals(ESTE)) return SUR;
+            case INF_DER: //inferior derecha (┘): conecta ABAJO-DERECHA
+                if (entrada.equals(SUR)) return ESTE;     // Abajo -> Derecha
+                if (entrada.equals(ESTE)) return SUR;     // Derecha -> Abajo
                 break;
 
-            case INF_IZQ: //conecta sur y oeste
-                if (entrada.equals(SUR)) return OESTE;
-                if (entrada.equals(OESTE)) return SUR;
+            case INF_IZQ: //inferior izquierda (└): conecta ABAJO-IZQUIERDA
+                if (entrada.equals(SUR)) return OESTE;    // Abajo -> Izquierda
+                if (entrada.equals(OESTE)) return SUR;    // Izquierda -> Abajo
                 break;
         }
 

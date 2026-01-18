@@ -95,10 +95,9 @@ public class GameManager {
 
             if (nx < 0 || nx >= rows || ny < 0 || ny >= cols) return false; //sale del mapa
 
-            //si llega a estación fin, solo es éxito si entra desde la izquierda (moviendo hacia este)
+            //si llega a estación fin, es éxito (desde cualquier dirección)
             if (nx == nivel.getSalidaX() && ny == nivel.getSalidaY()) {
-                if ("ESTE".equals(dir)) return true;
-                else return false;
+                return true;
             }
 
             //si choca con obstáculo

@@ -127,12 +127,12 @@ public class TableroPanel extends JPanel {
 
         // Mostrar menú de opciones de rieles
         String[] opciones = {
-                "━ Riel Recto Horizontal",
-                "┃ Riel Recto Vertical",
-                "┐ Curva Superior Derecha",
-                "┌ Curva Superior Izquierda",
-                "└ Curva Inferior Derecha",
-                "┘ Curva Inferior Izquierda",
+                "Izquierda-Derecha",
+                "Arriba-Abajo",
+                "Arriba-Izquierda",
+                "Arriba-Derecha",
+                "Abajo-Izquierda",
+                "Abajo-Derecha",
                 "Cancelar"
         };
 
@@ -164,20 +164,20 @@ public class TableroPanel extends JPanel {
                     nuevoRiel = new RielRecto(fila, col, 0);
                     simbolo = "┃";
                     break;
-                case 2: // Curva Superior Derecha
-                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_DER);
-                    simbolo = "┐";
-                    break;
-                case 3: // Curva Superior Izquierda
+                case 2: // Curva Superior Izquierda
                     nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_IZQ);
                     simbolo = "┌";
                     break;
-                case 4: // Curva Inferior Derecha
-                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_DER);
+                case 3: // Curva Superior Derecha
+                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.SUP_DER);
+                    simbolo = "┐";
+                    break;
+                case 4: // Curva Inferior Izquierda
+                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_IZQ);
                     simbolo = "└";
                     break;
-                case 5: // Curva Inferior Izquierda
-                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_IZQ);
+                case 5: // Curva Inferior Derecha
+                    nuevoRiel = new RielCurvo(fila, col, 0, RielCurvo.INF_DER);
                     simbolo = "┘";
                     break;
             }

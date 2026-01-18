@@ -35,6 +35,8 @@ public class VentanaResultado extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
+                // Limpiar todos los rieles del nivel antes de salir
+                nivel.limpiarRieles();
                 menuPrincipal.setVisible(true);
             }
         });
@@ -128,6 +130,8 @@ public class VentanaResultado extends JFrame {
         JButton btnMenu = crearBoton("🏠 MENÚ PRINCIPAL", new Color(70, 130, 180));
 
         btnMenu.addActionListener(e -> {
+            // Limpiar todos los rieles del nivel antes de salir
+            nivel.limpiarRieles();
             menuPrincipal.setVisible(true);
             dispose();
         });
