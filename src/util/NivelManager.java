@@ -13,7 +13,6 @@ public class NivelManager {
         this.niveles = new ArrayList<>();
     }
 
-    //crea los 3 niveles por defecto del juego: fácil, medio y difícil
     public void crearNivelesPorDefecto() throws Exception {
         niveles.clear();
 
@@ -23,6 +22,7 @@ public class NivelManager {
         nivel1.setEstacionFin(1, 4);
         nivel1.agregarObstaculo(new Piedra(0, 2));
         nivel1.agregarObstaculo(new Piedra(4, 2));
+        //nivel1.agregarObstaculo(new Piedra(3, 2));
         niveles.add(nivel1);
 
         //nivel 2: medio (6x7)

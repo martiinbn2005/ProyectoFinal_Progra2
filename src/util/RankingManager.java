@@ -43,7 +43,6 @@ public class RankingManager {
         }
     }
 
-    //jugadores ordenados por puntaje descendente.
     public List<Jugador> obtenerTopN(int n) {
         List<Map.Entry<Integer, Integer>> list = new ArrayList<>(mejoresPuntajes.entrySet());
         list.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
@@ -56,8 +55,6 @@ public class RankingManager {
         return out;
     }
 
-    
-    // devuelve el mejor puntaje conocido para un jugador (0 si no existe).
     public int obtenerMejorPuntaje(int idJugador) {
         return this.mejoresPuntajes.getOrDefault(idJugador, 0);
     }
